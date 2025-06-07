@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react"; // Ícones
+import { Menu, X } from "lucide-react";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,11 +12,11 @@ function Navbar() {
   ];
 
   return (
-    <nav className="bg-white shadow-md fixed w-full z-50">
+    <nav className="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md shadow-lg z-50">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo / Nome dos noivos */}
-        <a href="#home" className="text-xl font-bold text-pink-600">
-          Ana & João
+        <a href="#home" className="text-2xl font-bold text-pink-600">
+          Maguinha & Tuquinho
         </a>
 
         {/* Ícone do menu mobile */}
@@ -35,7 +35,7 @@ function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-gray-700 hover:text-pink-600 transition"
+              className="text-gray-700 hover:text-pink-600 transition font-medium"
             >
               {link.label}
             </a>
@@ -50,7 +50,7 @@ function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              onClick={() => setIsOpen(false)} // Fecha o menu ao clicar
+              onClick={() => setIsOpen(false)}
               className="block py-2 text-gray-700 hover:text-pink-600"
             >
               {link.label}
