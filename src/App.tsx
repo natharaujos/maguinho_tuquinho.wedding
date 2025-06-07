@@ -5,6 +5,9 @@ import Navbar from "./components/Navbar/Navbar";
 import OurHistory from "./components/OurHistory/OurHistory";
 import GiftCheckout from "./pages/GiftCheckout/GiftCheckout";
 import PaymentSuccess from "./components/PaymentSuccess/PaymentSuccess";
+import Login from "./components/Auth/GoogleLogin";
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
+import GoogleLogin from "./components/Auth/GoogleLogin";
 
 function App() {
   return (
@@ -23,8 +26,19 @@ function App() {
                 </>
               }
             />
-            <Route path="/gift/:id" element={<GiftCheckout />} />
+            <Route
+              path="/gift/:id"
+              element={
+                <ProtectedRoute>
+                  <GiftCheckout />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/success/:paymentId" element={<PaymentSuccess />} />
+            <Route
+              path="/login"
+              element={<GoogleLogin onLogin={(user) => console.log(user)} />}
+            />
           </Routes>
         </main>
       </div>
