@@ -11,7 +11,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyDrOcLHtoTnMJzTF23VXy35XFkWrtEQi2Q",
   authDomain: "maguinhatuquinho.firebaseapp.com",
   projectId: "maguinhatuquinho",
-  storageBucket: "maguinhatuquinho.firebasestorage.app",
+  storageBucket: "maguinhatuquinho.appspot.com",
   messagingSenderId: "909870967450",
   appId: "1:909870967450:web:39904313e4e60ee9bd4d23",
   measurementId: "G-EV60EEQSK6",
