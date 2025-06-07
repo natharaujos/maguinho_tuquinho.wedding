@@ -3,6 +3,8 @@ import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store";
 import type { Gift } from "../../store/giftSlice";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 function GiftCheckout() {
   const { id } = useParams();
@@ -23,6 +25,18 @@ function GiftCheckout() {
     setLoading(true);
 
     try {
+      const paymentRecord = {
+        giftId: currentGift?.id,
+        giftTitle: currentGift?.title,
+        buyerName,
+        amount: currentGift?.price,
+        mpPaymentId: "",
+        status: "pending",
+        createdAt: new Date(),
+      };
+
+      const docRef = await addDoc(collection(db, "payments"), paymentRecord);
+
       const response = await fetch(
         "https://api.mercadopago.com/checkout/preferences",
         {
@@ -44,10 +58,11 @@ function GiftCheckout() {
               name: buyerName,
             },
             back_urls: {
-              success: window.location.origin + "/success",
+              success: window.location.origin + `/success/${docRef.id}`,
               failure: window.location.origin + "/fail",
             },
             auto_return: "approved",
+            external_reference: docRef.id,
           }),
         }
       );
@@ -55,7 +70,7 @@ function GiftCheckout() {
       const data = await response.json();
 
       if (data.init_point) {
-        window.location.href = data.init_point; // redireciona para pagamento
+        window.location.href = data.init_point;
       } else {
         alert("Erro ao iniciar o pagamento.");
         console.error(data);

@@ -1,10 +1,9 @@
-// src/store/giftSlice.ts
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import giftData from "../constants/gifts";
 
 export type Gift = {
   id: number;
   title: string;
-  description: string;
   image: string;
   price: number;
 };
@@ -14,7 +13,7 @@ interface GiftState {
 }
 
 const initialState: GiftState = {
-  gifts: [],
+  gifts: giftData,
 };
 
 const giftSlice = createSlice({

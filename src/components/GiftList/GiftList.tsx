@@ -1,41 +1,16 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { saveGifts } from "../../store/giftSlice";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-interface Gift {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-}
+import type { RootState } from "../../store";
 
 export default function GiftList() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const gifts = useSelector((state: RootState) => state.gifts.gifts);
 
-  const [gifts, setGifts] = useState<Gift[]>([]);
-  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((data) => {
-        const products = data.map((item: Gift) => ({
-          id: item.id,
-          title: item.title,
-          price: item.price,
-          image: item.image,
-        }));
-        setGifts(products);
-        dispatch(saveGifts(products));
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <p className="text-center py-10">Loading gifts...</p>;
+  //   if (loading) return <p className="text-center py-10">Loading gifts...</p>;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
