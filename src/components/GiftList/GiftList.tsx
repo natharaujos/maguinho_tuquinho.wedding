@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { saveGifts } from "../../store/giftSlice";
+import { useNavigate } from "react-router-dom";
 
 interface Gift {
   id: number;
@@ -8,6 +11,9 @@ interface Gift {
 }
 
 export default function GiftList() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [gifts, setGifts] = useState<Gift[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,13 +30,13 @@ export default function GiftList() {
           image: item.image,
         }));
         setGifts(products);
+        dispatch(saveGifts(products));
         setLoading(false);
       });
   }, []);
 
   if (loading) return <p className="text-center py-10">Loading gifts...</p>;
 
-  // Cálculo dos itens que aparecem na página atual
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentGifts = gifts.slice(indexOfFirstItem, indexOfLastItem);
@@ -59,11 +65,7 @@ export default function GiftList() {
             </h3>
             <p className="text-pink-600 font-bold mb-4">${price.toFixed(2)}</p>
             <button
-              onClick={() =>
-                alert(
-                  `To contribute for "${title}", please send a PIX to our account!`
-                )
-              }
+              onClick={() => navigate(`/gift/${id}`)}
               className="bg-pink-600 text-white rounded-md px-4 py-2 hover:bg-pink-700 transition"
             >
               Presentear
