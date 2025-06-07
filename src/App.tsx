@@ -5,7 +5,6 @@ import Navbar from "./components/Navbar/Navbar";
 import OurHistory from "./components/OurHistory/OurHistory";
 import GiftCheckout from "./pages/GiftCheckout/GiftCheckout";
 import PaymentSuccess from "./components/PaymentSuccess/PaymentSuccess";
-import Login from "./components/Auth/GoogleLogin";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import GoogleLogin from "./components/Auth/GoogleLogin";
 
