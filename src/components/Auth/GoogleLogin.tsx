@@ -6,6 +6,7 @@ import {
 } from "firebase/auth";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useLoading } from "../../hooks/useLoading";
 
 interface GoogleLoginProps {
   onLogin: (user: User) => void;
@@ -21,6 +22,7 @@ function GoogleLogin({ onLogin }: GoogleLoginProps) {
 
   const searchParams = new URLSearchParams(location.search);
   const redirectTo = searchParams.get("redirect") || "/";
+  const { setNavigationLoading } = useLoading();
 
   const handleGoogleLogin = async () => {
     setLoading(true);
@@ -28,7 +30,9 @@ function GoogleLogin({ onLogin }: GoogleLoginProps) {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       onLogin(user);
+      setNavigationLoading(true);
       navigate(redirectTo, { replace: true });
+      setNavigationLoading(false);
     } catch (error) {
       console.error("Erro no login com Google:", error);
       alert("Falha no login com Google. Tente novamente.");
