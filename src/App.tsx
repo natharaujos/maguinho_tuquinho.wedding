@@ -7,6 +7,8 @@ import GiftCheckout from "./pages/GiftCheckout/GiftCheckout";
 import PaymentSuccess from "./components/PaymentSuccess/PaymentSuccess";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import GoogleLogin from "./components/Auth/GoogleLogin";
+import PaymentOptions from "./pages/GiftCheckout/PaymentOptions";
+import CreditCardForm from "./pages/CreditCardForm";
 
 function App() {
   return (
@@ -30,6 +32,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <GiftCheckout />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gift/:id/options"
+              element={
+                <ProtectedRoute>
+                  <PaymentOptions />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gift/:id/card"
+              element={
+                <ProtectedRoute>
+                  <CreditCardForm />
                 </ProtectedRoute>
               }
             />

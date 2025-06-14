@@ -1,13 +1,12 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store";
 import type { Gift } from "../../store/giftSlice";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../../firebase";
 
 function GiftCheckout() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const gifts = useSelector((state: RootState) => state.gifts.gifts);
   const currentGift = gifts.find((gift) => gift.id === Number(id));
 
@@ -17,70 +16,76 @@ function GiftCheckout() {
   const [loading, setLoading] = useState(false);
 
   const handlePayment = async () => {
-    if (!buyerName.trim()) {
-      alert("Por favor, informe seu nome.");
-      return;
-    }
-
     setLoading(true);
-
-    try {
-      const paymentRecord = {
-        giftId: currentGift?.id,
-        giftTitle: currentGift?.title,
-        buyerName,
-        amount: currentGift?.price,
-        mpPaymentId: "",
-        status: "pending",
-        createdAt: new Date(),
-      };
-
-      const docRef = await addDoc(collection(db, "payments"), paymentRecord);
-
-      const response = await fetch(
-        "https://api.mercadopago.com/checkout/preferences",
-        {
-          method: "POST",
-          headers: {
-            Authorization: "Bearer SEU_ACCESS_TOKEN_AQUI",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            items: [
-              {
-                title: currentGift?.title,
-                quantity: 1,
-                currency_id: "BRL",
-                unit_price: currentGift?.price,
-              },
-            ],
-            payer: {
-              name: buyerName,
-            },
-            back_urls: {
-              success: window.location.origin + `/success/${docRef.id}`,
-              failure: window.location.origin + "/fail",
-            },
-            auto_return: "approved",
-            external_reference: docRef.id,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.init_point) {
-        window.location.href = data.init_point;
-      } else {
-        alert("Erro ao iniciar o pagamento.");
-        console.error(data);
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Erro na conexão com o Mercado Pago.");
-    } finally {
-      setLoading(false);
+    // if (!buyerName.trim()) {
+    //   alert("Por favor, informe seu nome.");
+    //   return;
+    // }
+    // setLoading(true);
+    // try {
+    //   const paymentRecord = {
+    //     giftId: currentGift?.id,
+    //     giftTitle: currentGift?.title,
+    //     buyerName,
+    //     amount: currentGift?.price,
+    //     mpPaymentId: "",
+    //     status: "pending",
+    //     createdAt: new Date(),
+    //   };
+    //   const docRef = await addDoc(collection(db, "payments"), paymentRecord);
+    //   const response = await fetch(
+    //     "https://api.mercadopago.com/checkout/preferences",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         Authorization: "Bearer SEU_ACCESS_TOKEN_AQUI",
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         items: [
+    //           {
+    //             title: currentGift?.title,
+    //             quantity: 1,
+    //             currency_id: "BRL",
+    //             unit_price: currentGift?.price,
+    //           },
+    //         ],
+    //         payer: {
+    //           name: buyerName,
+    //         },
+    //         back_urls: {
+    //           success: window.location.origin + `/success/${docRef.id}`,
+    //           failure: window.location.origin + "/fail",
+    //         },
+    //         auto_return: "approved",
+    //         external_reference: docRef.id,
+    //       }),
+    //     }
+    //   );
+    //   const data = await response.json();
+    //   if (data.init_point) {
+    //     window.location.href = data.init_point;
+    //   } else {
+    //     alert("Erro ao iniciar o pagamento.");
+    //     console.error(data);
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    //   alert("Erro na conexão com o Mercado Pago.");
+    // } finally {
+    //   setLoading(false);
+    // }
+    if (currentGift) {
+      navigate(`/gift/${id}/options`, {
+        state: {
+          docRefId: id,
+          giftTitle: currentGift.title,
+          giftPrice: currentGift.price,
+          buyerName,
+        },
+      });
     }
+    setLoading(false);
   };
 
   if (!giftRef.current) return <p>Presente não encontrado.</p>;
