@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import GoogleLogin from "./components/Auth/GoogleLogin";
 import PaymentOptions from "./pages/PaymentOptions";
 import CreditCardForm from "./pages/CreditCardForm";
+import PixCheckout from "./pages/PixCheckout";
 
 function App() {
   return (
@@ -48,6 +49,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <CreditCardForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gift/pix-checkout"
+              element={
+                <ProtectedRoute>
+                  <PixCheckout />
                 </ProtectedRoute>
               }
             />
