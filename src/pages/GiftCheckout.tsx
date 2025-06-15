@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import type { RootState } from "../../store";
-import type { Gift } from "../../store/giftSlice";
+import type { RootState } from "../store";
+import type { Gift } from "../store/giftSlice";
 
 function GiftCheckout() {
   const { id } = useParams();

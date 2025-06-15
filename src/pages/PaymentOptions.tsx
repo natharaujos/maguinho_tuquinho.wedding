@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { MT_API } from "../../constants/urls";
+import { MT_API } from "../constants/urls";
 
 export type LocationState = {
   docRefId: string;

@@ -3,11 +3,11 @@ import GiftList from "./components/GiftList/GiftList";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import OurHistory from "./components/OurHistory/OurHistory";
-import GiftCheckout from "./pages/GiftCheckout/GiftCheckout";
+import GiftCheckout from "./pages/GiftCheckout";
 import PaymentSuccess from "./components/PaymentSuccess/PaymentSuccess";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import GoogleLogin from "./components/Auth/GoogleLogin";
-import PaymentOptions from "./pages/GiftCheckout/PaymentOptions";
+import PaymentOptions from "./pages/PaymentOptions";
 import CreditCardForm from "./pages/CreditCardForm";
 
 function App() {
