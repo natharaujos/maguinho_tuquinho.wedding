@@ -19,7 +19,7 @@ export default function PaymentOptions() {
   const handlePix = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${MT_API}/api/createPreference`, {
+      const res = await fetch(`${MT_API}/api/createPreferencePix`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
