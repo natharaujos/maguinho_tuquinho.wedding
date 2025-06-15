@@ -22,7 +22,7 @@ function PaymentSuccess() {
 
       try {
         const response = await fetch(
-          `${MT_API}/api/checkPaymentStatus//?${paymentId}`
+          `${MT_API}/api/checkPaymentStatus/?${paymentId}`
         );
 
         const data = await response.json();
