@@ -19,7 +19,7 @@ export default function PaymentOptions() {
     setLoading(true);
     try {
       const res = await fetch(
-        `https://your-vercel-project.vercel.app/api/createPreference`,
+        `https://mt-backend.vercel.app/api/createPreference`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -35,15 +35,17 @@ export default function PaymentOptions() {
             ],
             payer: { name: buyerName },
             payment_method_id: "pix",
-            back_urls: {
-              success: `${window.location.origin}/success/${docRefId}`,
-              failure: `${window.location.origin}/fail`,
-            },
           }),
         }
       );
       const data = await res.json();
-      window.location.href = data.init_point;
+
+      navigate("/pix-checkout", {
+        state: {
+          qrCode: data.point_of_interaction.transaction_data.qr_code,
+          initPoint: data.init_point,
+        },
+      });
     } catch (err) {
       console.error(err);
       alert("Erro ao gerar preferência PIX");

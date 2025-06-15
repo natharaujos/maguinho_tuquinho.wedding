@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import type { RootState } from "../../store";
-import { useLoading } from "../../hooks/useLoading";
+import { useLoading } from "../../contexts/LoadingContext";
 
 export default function GiftList() {
   const navigate = useNavigate();
   const gifts = useSelector((state: RootState) => state.gifts.gifts);
-  const { setNavigationLoading } = useLoading();
+  const { setLoadingWithDelay } = useLoading();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
@@ -43,9 +43,9 @@ export default function GiftList() {
             <p className="text-pink-600 font-bold mb-4">${price.toFixed(2)}</p>
             <button
               onClick={() => {
-                setNavigationLoading(true);
+                setLoadingWithDelay(true);
                 navigate(`/gift/${id}`);
-                setNavigationLoading(false);
+                setLoadingWithDelay(false);
               }}
               className="bg-pink-600 text-white rounded-md px-4 py-2 hover:bg-pink-700 transition"
             >

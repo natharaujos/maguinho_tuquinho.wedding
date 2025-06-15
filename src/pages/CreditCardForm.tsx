@@ -122,7 +122,7 @@ export default function CreditCardForm() {
       const token = result.body.id;
 
       const res = await fetch(
-        "https://your-vercel-project.vercel.app/api/processPayment",
+        "https://mt-backend.vercel.app/api/processPayment",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
