@@ -42,6 +42,7 @@ export default function PaymentOptions() {
         state: {
           qrCode: data.point_of_interaction.transaction_data.qr_code,
           initPoint: data.init_point,
+          docRefId,
         },
       });
     } catch (err) {

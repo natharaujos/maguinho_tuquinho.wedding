@@ -1,9 +1,43 @@
 import { useLocation } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
+import { useEffect } from "react";
 
 export default function PixCheckout() {
   const { state } = useLocation();
-  const { qrCode, initPoint } = state as { qrCode: string; initPoint: string };
+  const { qrCode, initPoint, docRefId } = state as {
+    qrCode: string;
+    initPoint: string;
+    docRefId: string;
+  };
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch(
+          `/api/checkPaymentStatus?paymentId=${docRefId}`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const responseData = await res.json();
+
+        if (
+          responseData === "approved" ||
+          responseData === "rejected" ||
+          responseData === "cancelled"
+        ) {
+          clearInterval(interval);
+          // navigate to the finishedPayment component, with the status
+        }
+      } catch (err) {
+        console.error("Failed to check payment status", err);
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [docRefId]);
 
   if (!qrCode) {
     return <p>QR Code não disponível.</p>;
