@@ -2,6 +2,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { db } from "../../../firebase";
+import { MT_API } from "../../constants/urls";
 
 function PaymentSuccess() {
   const { paymentDocId } = useParams();
@@ -21,12 +22,7 @@ function PaymentSuccess() {
 
       try {
         const response = await fetch(
-          `https://api.mercadopago.com/v1/payments/${paymentId}`,
-          {
-            headers: {
-              Authorization: `Bearer SEU_ACCESS_TOKEN_AQUI`,
-            },
-          }
+          `${MT_API}/api/checkPaymentStatus//?${paymentId}`
         );
 
         const data = await response.json();
@@ -39,7 +35,7 @@ function PaymentSuccess() {
 
           setStatus("approved");
         } else {
-          setStatus("pending"); // pode ser rejected, in_process etc
+          setStatus("pending");
         }
       } catch (err) {
         console.error(err);
@@ -48,7 +44,7 @@ function PaymentSuccess() {
     };
 
     checkPaymentStatus();
-  }, [searchParams, paymentDocId]);
+  }, [searchParams, paymentDocId, status]);
 
   return (
     <div className="text-center py-20 px-4">
@@ -59,6 +55,12 @@ function PaymentSuccess() {
           <p className="text-lg text-gray-600 mb-6">
             Obrigado pela sua contribuição.
           </p>
+          <Link
+            to="/"
+            className="mt-8 inline-block px-6 py-3 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition"
+          >
+            Voltar para a página inicial
+          </Link>
         </>
       )}
       {status === "pending" && (
@@ -81,13 +83,6 @@ function PaymentSuccess() {
           </p>
         </>
       )}
-
-      <Link
-        to="/"
-        className="mt-8 inline-block px-6 py-3 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition"
-      >
-        Voltar para a página inicial
-      </Link>
     </div>
   );
 }

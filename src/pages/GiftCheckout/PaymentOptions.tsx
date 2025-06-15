@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { MT_API } from "../../constants/urls";
 
 export type LocationState = {
   docRefId: string;
@@ -18,26 +19,23 @@ export default function PaymentOptions() {
   const handlePix = async () => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `https://mt-backend.vercel.app/api/createPreference`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            external_reference: docRefId,
-            items: [
-              {
-                title: giftTitle,
-                quantity: 1,
-                currency_id: "BRL",
-                unit_price: giftPrice,
-              },
-            ],
-            payer: { name: buyerName },
-            payment_method_id: "pix",
-          }),
-        }
-      );
+      const res = await fetch(`${MT_API}/api/createPreference`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          external_reference: docRefId,
+          items: [
+            {
+              title: giftTitle,
+              quantity: 1,
+              currency_id: "BRL",
+              unit_price: giftPrice,
+            },
+          ],
+          payer: { name: buyerName },
+          payment_method_id: "pix",
+        }),
+      });
       const data = await res.json();
 
       navigate("/pix-checkout", {
