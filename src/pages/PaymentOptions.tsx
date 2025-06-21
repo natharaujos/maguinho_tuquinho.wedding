@@ -46,7 +46,9 @@ export default function PaymentOptions() {
       //   },
       // })
 
-      navigate(data.init_point)
+      navigate(data.init_point, {
+        replace: true,
+      })
     } catch (err) {
       console.error(err)
       alert('Erro ao gerar preferência PIX')
