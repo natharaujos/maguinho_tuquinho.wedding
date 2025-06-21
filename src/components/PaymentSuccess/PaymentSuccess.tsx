@@ -1,7 +1,5 @@
-import { doc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
-import { db } from '../../../firebase'
 import { checkPaymentStatus } from '../../services/checkPaymentStatus'
 
 const validStatuses = ['approved', 'pending', 'rejected', 'cancelled'] as const
@@ -14,7 +12,7 @@ function PaymentSuccess() {
   const [status, setStatus] = useState<PaymentStatus>('loading')
 
   useEffect(() => {
-    const paymentIdFromSearch = searchParams.get('payment_id')
+    //const paymentIdFromSearch = searchParams.get('payment_id')
     const fallbackStatus = searchParams.get('collection_status')
 
     const check = async () => {
@@ -25,10 +23,10 @@ function PaymentSuccess() {
 
       // Se o status estiver presente na query e for válido
       if (fallbackStatus && validStatuses.includes(fallbackStatus as ValidStatus)) {
-        await updateDoc(doc(db, 'payments', paymentDocId), {
-          status: fallbackStatus,
-          mpPaymentId: paymentIdFromSearch || '',
-        })
+        // await updateDoc(doc(db, 'payments', paymentDocId), {
+        //   status: fallbackStatus,
+        //   mpPaymentId: paymentIdFromSearch || '',
+        // })
         setStatus(fallbackStatus as PaymentStatus)
         return
       }
@@ -37,10 +35,10 @@ function PaymentSuccess() {
       const result = await checkPaymentStatus(paymentDocId)
 
       if (validStatuses.includes(result as ValidStatus)) {
-        await updateDoc(doc(db, 'payments', paymentDocId), {
-          status: result,
-          mpPaymentId: paymentIdFromSearch || '',
-        })
+        // await updateDoc(doc(db, 'payments', paymentDocId), {
+        //   status: result,
+        //   mpPaymentId: paymentIdFromSearch || '',
+        // })
         setStatus(result as PaymentStatus)
       } else {
         setStatus('error')
