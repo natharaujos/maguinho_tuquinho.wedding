@@ -23,26 +23,24 @@ function PaymentSuccess() {
         return
       }
 
-      if (fallbackStatus && validStatuses.includes(fallbackStatus as any)) {
-        if (fallbackStatus === 'approved') {
-          await updateDoc(doc(db, 'payments', paymentDocId), {
-            status: 'approved',
-            mpPaymentId: paymentIdFromSearch || '',
-          })
-        }
+      // Se o status estiver presente na query e for válido
+      if (fallbackStatus && validStatuses.includes(fallbackStatus as ValidStatus)) {
+        await updateDoc(doc(db, 'payments', paymentDocId), {
+          status: fallbackStatus,
+          mpPaymentId: paymentIdFromSearch || '',
+        })
         setStatus(fallbackStatus as PaymentStatus)
         return
       }
 
+      // Se não tiver na query, checa via API
       const result = await checkPaymentStatus(paymentDocId)
 
-      if (validStatuses.includes(result as any)) {
-        if (result === 'approved') {
-          await updateDoc(doc(db, 'payments', paymentDocId), {
-            status: 'approved',
-            mpPaymentId: paymentIdFromSearch || '',
-          })
-        }
+      if (validStatuses.includes(result as ValidStatus)) {
+        await updateDoc(doc(db, 'payments', paymentDocId), {
+          status: result,
+          mpPaymentId: paymentIdFromSearch || '',
+        })
         setStatus(result as PaymentStatus)
       } else {
         setStatus('error')
