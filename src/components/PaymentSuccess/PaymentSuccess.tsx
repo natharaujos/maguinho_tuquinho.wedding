@@ -15,7 +15,7 @@ function PaymentSuccess() {
 
   useEffect(() => {
     const paymentIdFromSearch = searchParams.get('payment_id')
-    const fallbackStatus = searchParams.get('payment_status')
+    const fallbackStatus = searchParams.get('collection_status')
 
     const check = async () => {
       if (!paymentDocId) {
