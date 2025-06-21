@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { MT_API } from '../constants/urls'
 
@@ -12,7 +12,6 @@ export type LocationState = {
 export default function PaymentOptions() {
   const { state } = useLocation()
   const { docRefId, giftTitle, giftPrice, buyerName } = state as LocationState
-  const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false)
 
@@ -46,10 +45,10 @@ export default function PaymentOptions() {
     }
   }
 
-  const chooseCredit = () => {
-    // navigate to a CreditCardForm page, passing the same state
-    navigate(`/gift/${docRefId}/card`, { state })
-  }
+  // const chooseCredit = () => {
+  //   // navigate to a CreditCardForm page, passing the same state
+  //   navigate(`/gift/${docRefId}/card`, { state })
+  // }
 
   return (
     <div className="flex items-center justify-center min-h-[80vh]">
@@ -63,14 +62,14 @@ export default function PaymentOptions() {
           disabled={loading}
           className="w-full mb-4 bg-green-500 text-white py-2 rounded hover:bg-green-600 transition disabled:opacity-50"
         >
-          {loading ? 'Aguarde…' : 'Pagar com PIX'}
+          {loading ? 'Aguarde…' : 'Presentear'}
         </button>
-        <button
+        {/* <button
           onClick={chooseCredit}
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
         >
           Pagar com Cartão de Crédito
-        </button>
+        </button> */}
       </div>
     </div>
   )
