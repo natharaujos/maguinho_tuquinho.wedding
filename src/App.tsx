@@ -61,7 +61,7 @@ function App() {
               }
             />
             <Route
-              path="/success/:payment_id"
+              path="/payment/:payment_id"
               element={
                 <ProtectedRoute>
                   <PaymentSuccess />
