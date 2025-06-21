@@ -38,14 +38,6 @@ export default function PaymentOptions() {
       })
       const data = await res.json()
 
-      // navigate('/pix-checkout', {
-      //   state: {
-      //     qrCode: data.qrCode,
-      //     initPoint: data.init_point,
-      //     docRefId,
-      //   },
-      // })
-
       window.location.replace(data.init_point)
     } catch (err) {
       console.error(err)
