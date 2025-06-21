@@ -1,61 +1,61 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { MT_API } from "../constants/urls";
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { MT_API } from '../constants/urls'
 
 export type LocationState = {
-  docRefId: string;
-  giftTitle: string;
-  giftPrice: number;
-  buyerName: string;
-};
+  docRefId: string
+  giftTitle: string
+  giftPrice: number
+  buyerName: string
+}
 
 export default function PaymentOptions() {
-  const { state } = useLocation();
-  const { docRefId, giftTitle, giftPrice, buyerName } = state as LocationState;
-  const navigate = useNavigate();
+  const { state } = useLocation()
+  const { docRefId, giftTitle, giftPrice, buyerName } = state as LocationState
+  const navigate = useNavigate()
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const handlePix = async () => {
-    setLoading(true);
+    setLoading(true)
     try {
       const res = await fetch(`${MT_API}/api/createPreferencePix`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           external_reference: docRefId,
           items: [
             {
               title: giftTitle,
               quantity: 1,
-              currency_id: "BRL",
+              currency_id: 'BRL',
               unit_price: giftPrice,
             },
           ],
           payer: { name: buyerName },
-          payment_method_id: "pix",
+          payment_method_id: 'pix',
         }),
-      });
-      const data = await res.json();
+      })
+      const data = await res.json()
 
-      navigate("/pix-checkout", {
+      navigate('/pix-checkout', {
         state: {
-          qrCode: data.point_of_interaction.transaction_data.qr_code,
+          qrCode: data.qrCode,
           initPoint: data.init_point,
           docRefId,
         },
-      });
+      })
     } catch (err) {
-      console.error(err);
-      alert("Erro ao gerar preferência PIX");
-      setLoading(false);
+      console.error(err)
+      alert('Erro ao gerar preferência PIX')
+      setLoading(false)
     }
-  };
+  }
 
   const chooseCredit = () => {
     // navigate to a CreditCardForm page, passing the same state
-    navigate(`/gift/${docRefId}/card`, { state });
-  };
+    navigate(`/gift/${docRefId}/card`, { state })
+  }
 
   return (
     <div className="flex items-center justify-center min-h-[80vh]">
@@ -69,7 +69,7 @@ export default function PaymentOptions() {
           disabled={loading}
           className="w-full mb-4 bg-green-500 text-white py-2 rounded hover:bg-green-600 transition disabled:opacity-50"
         >
-          {loading ? "Aguarde…" : "Pagar com PIX"}
+          {loading ? 'Aguarde…' : 'Pagar com PIX'}
         </button>
         <button
           onClick={chooseCredit}
@@ -79,5 +79,5 @@ export default function PaymentOptions() {
         </button>
       </div>
     </div>
-  );
+  )
 }
