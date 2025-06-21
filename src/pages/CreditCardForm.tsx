@@ -77,7 +77,7 @@ export default function CreditCardForm() {
 
   useEffect(() => {
     if (window.MercadoPago) {
-      const mpInstance = new window.MercadoPago(TEST_KEY, {
+      const mpInstance = new window.MercadoPago(TEST_KEY!, {
         locale: 'pt-BR' as any,
       })
       setMp(mpInstance)
