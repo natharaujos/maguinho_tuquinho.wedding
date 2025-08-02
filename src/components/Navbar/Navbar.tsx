@@ -10,7 +10,6 @@ function Navbar() {
     { label: "Início", href: "#home" },
     { label: "Nossa História", href: "#historia" },
     { label: "Presentes", href: "#presentes" },
-    { label: "RSVP", href: "#rsvp" },
   ];
 
   return (
