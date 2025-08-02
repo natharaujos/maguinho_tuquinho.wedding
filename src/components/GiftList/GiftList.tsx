@@ -21,7 +21,7 @@ export default function GiftList() {
   const totalPages = Math.ceil(gifts.length / itemsPerPage);
 
   return (
-    <section id="gifts" className="max-w-7xl mx-auto px-4 py-16">
+    <section id="presentes" className="max-w-7xl mx-auto px-4 py-16">
       <h2 className="text-4xl font-bold text-pink-600 mb-8 text-center">
         List de Presentes
       </h2>
