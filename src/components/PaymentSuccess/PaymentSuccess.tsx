@@ -1,92 +1,110 @@
-import { useEffect, useState } from 'react'
-import { Link, useParams, useSearchParams } from 'react-router-dom'
-import { checkPaymentStatus } from '../../services/checkPaymentStatus'
+import { useEffect, useState } from "react";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import { checkPaymentStatus } from "../../services/checkPaymentStatus";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
 
-const validStatuses = ['approved', 'pending', 'rejected', 'cancelled'] as const
-type ValidStatus = (typeof validStatuses)[number]
-type PaymentStatus = ValidStatus | 'loading' | 'error'
+const validStatuses = ["approved", "pending", "rejected", "cancelled"] as const;
+type ValidStatus = (typeof validStatuses)[number];
+type PaymentStatus = ValidStatus | "loading" | "error";
 
 function PaymentSuccess() {
-  const { paymentDocId } = useParams()
-  const [searchParams] = useSearchParams()
-  const [status, setStatus] = useState<PaymentStatus>('loading')
+  // this is not the one that is saved in the database, its the giftId. Need to change that.
+  const { paymentDocId } = useParams();
+  const [searchParams] = useSearchParams();
+  const [status, setStatus] = useState<PaymentStatus>("loading");
 
   useEffect(() => {
-    //const paymentIdFromSearch = searchParams.get('payment_id')
-    const fallbackStatus = searchParams.get('collection_status')
+    const paymentIdFromSearch = searchParams.get("payment_id");
+    const fallbackStatus = searchParams.get("collection_status");
 
     const check = async () => {
       if (!paymentDocId) {
-        setStatus('error')
-        return
+        setStatus("error");
+        return;
       }
 
       // Se o status estiver presente na query e for válido
-      if (fallbackStatus && validStatuses.includes(fallbackStatus as ValidStatus)) {
-        // await updateDoc(doc(db, 'payments', paymentDocId), {
-        //   status: fallbackStatus,
-        //   mpPaymentId: paymentIdFromSearch || '',
-        // })
-        setStatus(fallbackStatus as PaymentStatus)
-        return
+      if (
+        fallbackStatus &&
+        validStatuses.includes(fallbackStatus as ValidStatus)
+      ) {
+        await updateDoc(doc(db, "payments", paymentDocId), {
+          status: fallbackStatus,
+          mpPaymentId: paymentIdFromSearch || "",
+        });
+        setStatus(fallbackStatus as PaymentStatus);
+        return;
       }
 
       // Se não tiver na query, checa via API
-      const result = await checkPaymentStatus(paymentDocId)
+      const result = await checkPaymentStatus(paymentDocId);
 
       if (validStatuses.includes(result as ValidStatus)) {
-        // await updateDoc(doc(db, 'payments', paymentDocId), {
-        //   status: result,
-        //   mpPaymentId: paymentIdFromSearch || '',
-        // })
-        setStatus(result as PaymentStatus)
+        await updateDoc(doc(db, "payments", paymentDocId), {
+          status: result,
+          mpPaymentId: paymentIdFromSearch || "",
+        });
+        setStatus(result as PaymentStatus);
       } else {
-        setStatus('error')
+        setStatus("error");
       }
-    }
+    };
 
-    check()
-  }, [paymentDocId, searchParams])
+    check();
+  }, [paymentDocId, searchParams]);
 
   return (
     <div className="text-center py-20 px-4">
-      {status === 'loading' && <p>Verificando pagamento...</p>}
+      {status === "loading" && <p>Verificando pagamento...</p>}
 
-      {status === 'approved' && (
+      {status === "approved" && (
         <>
           <h1 className="text-3xl font-bold mb-4">🎉 Pagamento aprovado!</h1>
-          <p className="text-lg text-gray-600 mb-6">Obrigado pela sua contribuição.</p>
+          <p className="text-lg text-gray-600 mb-6">
+            Obrigado pela sua contribuição.
+          </p>
         </>
       )}
 
-      {status === 'pending' && (
+      {status === "pending" && (
         <>
-          <h1 className="text-2xl font-bold text-yellow-600">Pagamento em análise</h1>
-          <p className="text-gray-600 mt-2">Aguarde a confirmação do Mercado Pago.</p>
+          <h1 className="text-2xl font-bold text-yellow-600">
+            Pagamento em análise
+          </h1>
+          <p className="text-gray-600 mt-2">
+            Aguarde a confirmação do Mercado Pago.
+          </p>
         </>
       )}
 
-      {status === 'rejected' && (
+      {status === "rejected" && (
         <>
-          <h1 className="text-2xl font-bold text-red-600">Pagamento recusado</h1>
+          <h1 className="text-2xl font-bold text-red-600">
+            Pagamento recusado
+          </h1>
           <p className="text-gray-600 mt-2">
             O pagamento foi recusado. Verifique os dados e tente novamente.
           </p>
         </>
       )}
 
-      {status === 'cancelled' && (
+      {status === "cancelled" && (
         <>
-          <h1 className="text-2xl font-bold text-gray-700">Pagamento cancelado</h1>
+          <h1 className="text-2xl font-bold text-gray-700">
+            Pagamento cancelado
+          </h1>
           <p className="text-gray-600 mt-2">
             O pagamento foi cancelado. Você pode tentar novamente se desejar.
           </p>
         </>
       )}
 
-      {status === 'error' && (
+      {status === "error" && (
         <>
-          <h1 className="text-2xl font-bold text-red-600">Erro ao verificar pagamento</h1>
+          <h1 className="text-2xl font-bold text-red-600">
+            Erro ao verificar pagamento
+          </h1>
           <p className="text-gray-600 mt-2">
             Verifique seu e-mail ou entre em contato com os noivos.
           </p>
@@ -102,7 +120,7 @@ function PaymentSuccess() {
         </Link>
       )}
     </div>
-  )
+  );
 }
 
-export default PaymentSuccess
+export default PaymentSuccess;

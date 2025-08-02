@@ -3,7 +3,12 @@ import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store";
 import type { Gift } from "../store/giftSlice";
-import { addDoc, collection } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  DocumentReference,
+  type DocumentData,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 
 function GiftCheckout() {
@@ -16,6 +21,8 @@ function GiftCheckout() {
 
   const [buyerName, setBuyerName] = useState("");
   const [loading, setLoading] = useState(false);
+
+  let docRef: DocumentReference<DocumentData>;
 
   const handlePayment = async () => {
     setLoading(true);
@@ -34,7 +41,8 @@ function GiftCheckout() {
         status: "pending",
         createdAt: new Date(),
       };
-      await addDoc(collection(db, "payments"), paymentRecord);
+      const response = await addDoc(collection(db, "payments"), paymentRecord);
+      docRef = response;
     } catch (error) {
       console.error(error);
       alert(
@@ -47,7 +55,7 @@ function GiftCheckout() {
     if (currentGift) {
       navigate(`/gift/${id}/options`, {
         state: {
-          docRefId: id,
+          docRefId: docRef.id,
           giftTitle: currentGift.title,
           giftPrice: currentGift.price,
           buyerName,
