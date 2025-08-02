@@ -37,7 +37,9 @@ function GiftCheckout() {
       await addDoc(collection(db, "payments"), paymentRecord);
     } catch (error) {
       console.error(error);
-      alert("Erro na conexão com o banco de dados.");
+      alert(
+        `Erro ao iniciar sessão de pagamento. Entre em contato com os noivos.`
+      );
     } finally {
       setLoading(false);
     }
