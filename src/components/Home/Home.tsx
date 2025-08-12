@@ -1,8 +1,16 @@
 import Button from "../Button/Button";
 import Countdown from "../Countdown/Countdown";
 import foto from "../../assets/foto.jpg";
+import { useState } from "react";
+import { ConfirmPresenceModal } from "../ConfirmPresence";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../../firebase";
+import { savePresenceConfirmation } from "../../services/savePresenceConfirmation";
 
 function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [user] = useAuthState(auth);
+
   return (
     <section
       id="home"
@@ -38,9 +46,25 @@ function Home() {
         <div className="mt-8 flex flex-col sm:flex-row gap-4">
           <Button text="Nossa História" link="#historia" />
           <Button text="Lista de Presentes" link="#presentes" />
-          <Button text="Confirme Presença" link="#rsvp" />
+          <Button
+            text="Confirme Presença"
+            onClick={() => setIsModalOpen(true)}
+          />
         </div>
       </div>
+      <ConfirmPresenceModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        userEmail={user?.email || ""}
+        onConfirm={(guests) => {
+          savePresenceConfirmation({
+            userEmail: user?.email || "",
+            guestsCount: guests,
+            confirmedAt: new Date(),
+            status: "confirmed",
+          });
+        }}
+      />
     </section>
   );
 }

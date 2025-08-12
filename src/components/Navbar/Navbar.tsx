@@ -1,16 +1,32 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../../firebase";
+import admins from "../../constants/admins";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const [user] = useAuthState(auth);
 
   const navLinks = [
-    { label: "Início", href: "#home" },
-    { label: "Nossa História", href: "#historia" },
-    { label: "Presentes", href: "#presentes" },
+    { label: "Início", onClick: () => navigate("/") },
+    {
+      label: "Nossa História",
+      onClick: () => navigate("/"),
+    },
+    { label: "Presentes", onClick: () => navigate("/") },
   ];
+
+  const confirmedRoute = {
+    label: "Confirmados",
+    onClick: () => navigate("/confirmeds"),
+  };
+
+  if (user?.email && admins.includes(user?.email)) {
+    navLinks.push(confirmedRoute);
+  }
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md shadow-lg z-50">
@@ -37,13 +53,13 @@ function Navbar() {
         {/* Links do menu (desktop) */}
         <div className="hidden md:flex space-x-6">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
+            <button
+              key={link.label}
               className="text-gray-700 hover:text-pink-600 transition font-medium"
+              onClick={link.onClick}
             >
               {link.label}
-            </a>
+            </button>
           ))}
         </div>
       </div>
@@ -52,14 +68,16 @@ function Navbar() {
       {isOpen && (
         <div className="md:hidden bg-white px-4 pb-4">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
+            <button
+              key={link.label}
+              onClick={() => {
+                link.onClick();
+                setIsOpen(false);
+              }}
               className="block py-2 text-gray-700 hover:text-pink-600"
             >
               {link.label}
-            </a>
+            </button>
           ))}
         </div>
       )}
