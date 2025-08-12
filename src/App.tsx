@@ -22,11 +22,21 @@ function App() {
             <Route
               path="/"
               element={
-                <>
-                  <Home />
-                  <OurHistory />
-                  <GiftList />
-                </>
+                <ProtectedRoute>
+                  <>
+                    <Home />
+                    <OurHistory />
+                    <GiftList />
+                  </>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gift/:id"
+              element={
+                <ProtectedRoute>
+                  <GiftCheckout />
+                </ProtectedRoute>
               }
             />
             <Route
