@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { checkPaymentStatus } from "../../services/checkPaymentStatus";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 const validStatuses = ["approved", "pending", "rejected", "cancelled"] as const;
@@ -10,7 +10,7 @@ type PaymentStatus = ValidStatus | "loading" | "error";
 
 function PaymentSuccess() {
   // this is not the one that is saved in the database, its the giftId. Need to change that.
-  const { paymentDocId } = useParams();
+  const { payment_id } = useParams();
   const [searchParams] = useSearchParams();
   const [status, setStatus] = useState<PaymentStatus>("loading");
 
@@ -19,40 +19,63 @@ function PaymentSuccess() {
     const fallbackStatus = searchParams.get("collection_status");
 
     const check = async () => {
-      if (!paymentDocId) {
+      if (!payment_id) {
         setStatus("error");
         return;
       }
 
-      // Se o status estiver presente na query e for válido
-      if (
-        fallbackStatus &&
-        validStatuses.includes(fallbackStatus as ValidStatus)
-      ) {
-        await updateDoc(doc(db, "payments", paymentDocId), {
-          status: fallbackStatus,
-          mpPaymentId: paymentIdFromSearch || "",
-        });
-        setStatus(fallbackStatus as PaymentStatus);
-        return;
-      }
+      try {
+        const paymentDoc = await getDoc(doc(db, "payments", payment_id));
 
-      // Se não tiver na query, checa via API
-      const result = await checkPaymentStatus(paymentDocId);
+        if (!paymentDoc.exists()) {
+          console.error("Payment document not found:", payment_id);
+          setStatus("error");
+          return;
+        }
 
-      if (validStatuses.includes(result as ValidStatus)) {
-        await updateDoc(doc(db, "payments", paymentDocId), {
-          status: result,
-          mpPaymentId: paymentIdFromSearch || "",
-        });
-        setStatus(result as PaymentStatus);
-      } else {
+        if (
+          fallbackStatus &&
+          validStatuses.includes(fallbackStatus as ValidStatus)
+        ) {
+          // Get the payment data to access the giftId
+          const paymentData = paymentDoc.data();
+
+          await updateDoc(doc(db, "payments", payment_id), {
+            status: fallbackStatus,
+            mpPaymentId: paymentIdFromSearch || "",
+          });
+
+          if (fallbackStatus === "approved" && paymentData.giftId) {
+            await updateDoc(doc(db, "gifts", paymentData.giftId), {
+              buyedBy: paymentData.buyerEmail || "anonymous",
+            });
+          }
+
+          setStatus(fallbackStatus as PaymentStatus);
+
+          return;
+        }
+
+        console.log("Checking status via API");
+        const result = await checkPaymentStatus(payment_id);
+
+        if (validStatuses.includes(result as ValidStatus)) {
+          await updateDoc(doc(db, "payments", payment_id), {
+            status: result,
+            mpPaymentId: paymentIdFromSearch || "",
+          });
+          setStatus(result as PaymentStatus);
+        } else {
+          setStatus("error");
+        }
+      } catch (error) {
+        console.error("Error checking payment status:", error);
         setStatus("error");
       }
     };
 
     check();
-  }, [paymentDocId, searchParams]);
+  }, [payment_id, searchParams]);
 
   return (
     <div className="text-center py-20 px-4">

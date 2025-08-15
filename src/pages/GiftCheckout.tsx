@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import type { RootState } from "../store";
+import { useEffect, useState } from "react";
 import type { Gift } from "../store/giftSlice";
 import {
   addDoc,
   collection,
+  doc,
   DocumentReference,
+  getDoc,
   type DocumentData,
 } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -14,15 +14,24 @@ import { db } from "../../firebase";
 function GiftCheckout() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const gifts = useSelector((state: RootState) => state.gifts.gifts);
-  const currentGift = gifts.find((gift) => gift.id === Number(id));
-
-  const giftRef = useRef<Gift>(currentGift);
 
   const [buyerName, setBuyerName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [gift, setGift] = useState<Gift | null>(null);
 
   let docRef: DocumentReference<DocumentData>;
+
+  useEffect(() => {
+    const getGiftDetails = async () => {
+      if (id) {
+        const giftDoc = await getDoc(doc(db, "gifts", id));
+        const giftData = giftDoc.data();
+        setGift(giftData as Gift);
+      }
+    };
+
+    getGiftDetails();
+  }, []);
 
   const handlePayment = async () => {
     setLoading(true);
@@ -33,10 +42,10 @@ function GiftCheckout() {
     setLoading(true);
     try {
       const paymentRecord = {
-        giftId: currentGift?.id,
-        giftTitle: currentGift?.title,
+        giftId: id,
+        giftTitle: gift?.title,
         buyerName,
-        amount: currentGift?.price,
+        amount: gift?.price,
         mpPaymentId: "",
         status: "pending",
         createdAt: new Date(),
@@ -52,12 +61,12 @@ function GiftCheckout() {
       setLoading(false);
     }
 
-    if (currentGift) {
+    if (gift) {
       navigate(`/gift/${id}/options`, {
         state: {
           docRefId: docRef.id,
-          giftTitle: currentGift.title,
-          giftPrice: currentGift.price,
+          giftTitle: gift.title,
+          giftPrice: gift.price,
           buyerName,
         },
       });
@@ -65,19 +74,25 @@ function GiftCheckout() {
     setLoading(false);
   };
 
-  if (!giftRef.current) return <p>Presente não encontrado.</p>;
+  if (!gift) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-lg text-gray-700 font-medium">
+          Presente não encontrado.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-xl mx-auto px-4 py-12 text-center">
       <img
-        src={giftRef.current.image}
-        alt={giftRef.current.title}
+        src={gift.image}
+        alt={gift.title}
         className="w-50 rounded-md mb-6 mx-auto"
       />
-      <h2 className="text-2xl font-bold">{giftRef.current.title}</h2>
-      <p className="text-lg text-gray-600 mb-4">
-        R$ {giftRef.current.price.toFixed(2)}
-      </p>
+      <h2 className="text-2xl font-bold">{gift.title}</h2>
+      <p className="text-lg text-gray-600 mb-4">R$ {gift.price.toFixed(2)}</p>
 
       <input
         type="text"

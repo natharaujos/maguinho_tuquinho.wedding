@@ -1,29 +1,63 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import type { RootState } from "../../store";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase";
 import { useLoading } from "../../contexts/LoadingContext";
+
+interface Gift {
+  id: string;
+  title: string;
+  price: number;
+  image: string;
+  buyedBy: string;
+}
 
 export default function GiftList() {
   const navigate = useNavigate();
-  const gifts = useSelector((state: RootState) => state.gifts.gifts);
   const { setLoadingWithDelay } = useLoading();
-
+  const [gifts, setGifts] = useState<Gift[]>([]);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
-  //   if (loading) return <p className="text-center py-10">Loading gifts...</p>;
+  useEffect(() => {
+    async function fetchGifts() {
+      try {
+        const giftsCollection = collection(db, "gifts");
+        const giftsSnapshot = await getDocs(giftsCollection);
+        const giftsList = giftsSnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        })) as Gift[];
+
+        const availableGifts = giftsList.filter((gift) => !gift.buyedBy);
+        setGifts(availableGifts);
+      } catch (error) {
+        console.error("Error fetching gifts:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchGifts();
+  }, []);
+
+  if (loading)
+    return (
+      <div className="flex justify-center items-center py-16">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600"></div>
+      </div>
+    );
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentGifts = gifts.slice(indexOfFirstItem, indexOfLastItem);
-
   const totalPages = Math.ceil(gifts.length / itemsPerPage);
 
   return (
     <section id="presentes" className="max-w-7xl mx-auto px-4 py-16">
       <h2 className="text-4xl font-bold text-pink-600 mb-8 text-center">
-        List de Presentes
+        Lista de Presentes
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
@@ -40,7 +74,9 @@ export default function GiftList() {
             <h3 className="text-lg font-semibold text-gray-800 mb-2 text-center">
               {title}
             </h3>
-            <p className="text-pink-600 font-bold mb-4">${price.toFixed(2)}</p>
+            <p className="text-pink-600 font-bold mb-4">
+              R$ {price.toFixed(2)}
+            </p>
             <button
               onClick={() => {
                 setLoadingWithDelay(true);
