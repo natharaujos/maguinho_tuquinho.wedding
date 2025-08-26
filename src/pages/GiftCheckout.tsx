@@ -9,7 +9,8 @@ import {
   getDoc,
   type DocumentData,
 } from "firebase/firestore";
-import { db } from "../../firebase";
+import { auth, db } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function GiftCheckout() {
   const { id } = useParams();
@@ -18,6 +19,7 @@ function GiftCheckout() {
   const [buyerName, setBuyerName] = useState("");
   const [loading, setLoading] = useState(false);
   const [gift, setGift] = useState<Gift | null>(null);
+  const [user] = useAuthState(auth);
 
   let docRef: DocumentReference<DocumentData>;
 
@@ -45,6 +47,7 @@ function GiftCheckout() {
         giftId: id,
         giftTitle: gift?.title,
         buyerName,
+        buyerEmail: user?.email,
         amount: gift?.price,
         mpPaymentId: "",
         status: "pending",

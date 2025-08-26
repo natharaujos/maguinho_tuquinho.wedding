@@ -15,7 +15,7 @@ function PaymentSuccess() {
   const [status, setStatus] = useState<PaymentStatus>("loading");
 
   useEffect(() => {
-    const paymentIdFromSearch = searchParams.get("payment_id");
+    const mpPaymentId = searchParams.get("payment_id");
     const fallbackStatus = searchParams.get("collection_status");
 
     const check = async () => {
@@ -42,7 +42,7 @@ function PaymentSuccess() {
 
           await updateDoc(doc(db, "payments", payment_id), {
             status: fallbackStatus,
-            mpPaymentId: paymentIdFromSearch || "",
+            mpPaymentId: mpPaymentId || "",
           });
 
           if (fallbackStatus === "approved" && paymentData.giftId) {
@@ -52,17 +52,15 @@ function PaymentSuccess() {
           }
 
           setStatus(fallbackStatus as PaymentStatus);
-
-          return;
         }
 
         console.log("Checking status via API");
-        const result = await checkPaymentStatus(payment_id);
+        const result = await checkPaymentStatus(mpPaymentId || "");
 
         if (validStatuses.includes(result as ValidStatus)) {
           await updateDoc(doc(db, "payments", payment_id), {
             status: result,
-            mpPaymentId: paymentIdFromSearch || "",
+            mpPaymentId: mpPaymentId || "",
           });
           setStatus(result as PaymentStatus);
         } else {
