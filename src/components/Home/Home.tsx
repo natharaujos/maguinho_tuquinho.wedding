@@ -1,6 +1,6 @@
 import Button from "../Button/Button";
 import Countdown from "../Countdown/Countdown";
-import foto from "../../assets/main_pic_mtwedding.jfif";
+import foto from "../../assets/main_pic.jfif";
 import { useState } from "react";
 import { ConfirmPresenceModal } from "../ConfirmPresence";
 import { useAuthState } from "react-firebase-hooks/auth";
