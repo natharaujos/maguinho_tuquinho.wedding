@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import StyledLoading from "../components/StyledLoading";
 
 type LoadingContextType = {
   loading: boolean;
@@ -24,13 +25,7 @@ const LoadingProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <LoadingContext.Provider value={{ loading, setLoadingWithDelay }}>
       {children}
-      {loading && (
-        <div className="fixed inset-0 bg-white/60 backdrop-blur-sm flex items-center justify-center z-50">
-          <span className="text-blue-600 animate-pulse text-xl">
-            Carregando...
-          </span>
-        </div>
-      )}
+      {loading && <StyledLoading />}
     </LoadingContext.Provider>
   );
 };

@@ -11,7 +11,7 @@ import PaymentOptions from "./pages/PaymentOptions";
 import CreditCardForm from "./pages/CreditCardForm";
 import PixCheckout from "./pages/PixCheckout";
 import { ConfirmedGuests } from "./components/ConfirmedGuests";
-import { MyPayments } from "./components/MyPayments";
+import { MyContributions } from "./components/MyContributions";
 
 function App() {
   return (
@@ -89,10 +89,10 @@ function App() {
               }
             />
             <Route
-              path="/my-payments"
+              path="/my-contributions"
               element={
                 <ProtectedRoute>
-                  <MyPayments />
+                  <MyContributions />
                 </ProtectedRoute>
               }
             />

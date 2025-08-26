@@ -12,6 +12,7 @@ import { db } from "../../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase";
 import { checkPaymentStatus } from "../../services/checkPaymentStatus";
+import { Link } from "react-router-dom";
 
 interface Payment {
   id?: string; // Add id field for document reference
@@ -24,7 +25,7 @@ interface Payment {
   status: "approved" | "pending" | "rejected" | "cancelled" | "error";
 }
 
-export function MyPayments() {
+export function MyContributions() {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
   const [user] = useAuthState(auth);
@@ -122,7 +123,7 @@ export function MyPayments() {
   return (
     <section className="max-w-4xl mx-auto px-4 py-12">
       <h2 className="text-2xl font-bold text-pink-700 text-center mb-8">
-        Meus Pagamentos
+        Minhas Contribuições
       </h2>
 
       <div className="grid gap-4">
@@ -159,9 +160,18 @@ export function MyPayments() {
 
         {payments.length === 0 && (
           <p className="text-center text-gray-500">
-            Você ainda não fez nenhum pagamento.
+            Você ainda não contribuiu com nenhum presente.
           </p>
         )}
+      </div>
+
+      <div className="flex justify-end">
+        <Link
+          to="/"
+          className="mt-8 inline-block px-6 py-3 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition"
+        >
+          Voltar para a página inicial
+        </Link>
       </div>
     </section>
   );

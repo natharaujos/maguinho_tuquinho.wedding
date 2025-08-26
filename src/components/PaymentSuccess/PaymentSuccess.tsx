@@ -132,14 +132,23 @@ function PaymentSuccess() {
         </>
       )}
 
-      {validStatuses.includes(status as ValidStatus) && (
+      <div className="flex gap-x-2 justify-center">
+        {validStatuses.includes(status as ValidStatus) && (
+          <Link
+            to="/"
+            className="mt-8 inline-block px-6 py-3 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition"
+          >
+            Voltar para a página inicial
+          </Link>
+        )}
+
         <Link
-          to="/"
+          to="/my-contributions"
           className="mt-8 inline-block px-6 py-3 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition"
         >
-          Voltar para a página inicial
+          Ir para Minhas Contribuições
         </Link>
-      )}
+      </div>
     </div>
   );
 }

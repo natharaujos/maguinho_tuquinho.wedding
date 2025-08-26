@@ -18,8 +18,8 @@ function Navbar() {
     },
     { label: "Presentes", onClick: () => navigate("/") },
     {
-      label: "Meus Pagamentos",
-      onClick: () => navigate("/my-payments"),
+      label: "Minhas Contribuições",
+      onClick: () => navigate("/my-contributions"),
     },
   ];
 
