@@ -28,8 +28,14 @@ function Navbar() {
     onClick: () => navigate("/confirmeds"),
   };
 
+  const allContributions = {
+    label: "Todas as Contribuições",
+    onClick: () => navigate("/all-contributions"),
+  };
+
   if (user?.email && admins.includes(user?.email)) {
     navLinks.push(confirmedRoute);
+    navLinks.push(allContributions);
   }
 
   return (

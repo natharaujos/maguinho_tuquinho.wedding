@@ -13,6 +13,8 @@ import CreditCardForm from "./pages/CreditCardForm";
 import PixCheckout from "./pages/PixCheckout";
 import { ConfirmedGuests } from "./components/ConfirmedGuests";
 import { MyContributions } from "./components/MyContributions";
+import AdminRoute from "./components/AdminRoute";
+import AllContributions from "./components/AllContributions";
 
 function App() {
   return (
@@ -95,6 +97,16 @@ function App() {
               element={
                 <ProtectedRoute>
                   <MyContributions />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/all-contributions"
+              element={
+                <ProtectedRoute>
+                  <AdminRoute>
+                    <AllContributions />
+                  </AdminRoute>
                 </ProtectedRoute>
               }
             />
