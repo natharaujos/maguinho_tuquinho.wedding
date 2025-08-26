@@ -44,7 +44,7 @@ function Navbar() {
         {/* Logo / Nome dos noivos */}
         <a
           href="#home"
-          className="text-2xl font-bold text-pink-600"
+          className="text-2xl font-bold text-pink-600 cursor-pointer"
           onClick={() => navigate("/")}
         >
           Maguinha & Tuquinho
@@ -65,7 +65,7 @@ function Navbar() {
           {navLinks.map((link) => (
             <button
               key={link.label}
-              className="text-gray-700 hover:text-pink-600 transition font-medium"
+              className="text-gray-700 hover:text-pink-600 transition font-medium cursor-pointer"
               onClick={link.onClick}
             >
               {link.label}
