@@ -7,7 +7,7 @@ type ConfirmPresenceModalProps = {
   isOpen: boolean;
   onClose: () => void;
   userEmail: string;
-  onConfirm: (guests: number) => void;
+  onConfirm: (guestsCount: number, guestNames: string[]) => void;
 };
 
 export function ConfirmPresenceModal({
@@ -16,7 +16,8 @@ export function ConfirmPresenceModal({
   userEmail,
   onConfirm,
 }: ConfirmPresenceModalProps) {
-  const [guests, setGuests] = useState(1);
+  const [guestsCount, setGuestsCount] = useState(1);
+  const [guestNames, setGuestNames] = useState<string[]>([""]);
   const [loading, setLoading] = useState(false);
   const [alreadyConfirmed, setAlreadyConfirmed] = useState(false);
 
@@ -45,9 +46,30 @@ export function ConfirmPresenceModal({
     }
   }, [userEmail, isOpen]);
 
+  // Handle change in number of guests
+  const handleGuestsCountChange = (count: number) => {
+    setGuestsCount(count);
+
+    if (count > guestNames.length) {
+      setGuestNames([
+        ...guestNames,
+        ...Array(count - guestNames.length).fill(""),
+      ]);
+    } else {
+      setGuestNames(guestNames.slice(0, count));
+    }
+  };
+
+  // Handle change in guest name
+  const handleNameChange = (index: number, value: string) => {
+    const updated = [...guestNames];
+    updated[index] = value;
+    setGuestNames(updated);
+  };
+
   const handleConfirm = () => {
     if (alreadyConfirmed) return;
-    onConfirm(guests);
+    onConfirm(guestsCount, guestNames);
     onClose();
   };
 
@@ -80,22 +102,41 @@ export function ConfirmPresenceModal({
             Você já confirmou sua presença anteriormente.
           </div>
         ) : (
-          <div>
-            <label
-              htmlFor="guests"
-              className="block text-gray-700 font-medium mb-2"
-            >
-              Quantas pessoas vão na festa com você?
-            </label>
-            <input
-              id="guests"
-              type="number"
-              min={1}
-              max={10}
-              value={guests}
-              onChange={(e) => setGuests(Number(e.target.value))}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-            />
+          <div className="space-y-4">
+            {/* Number of guests */}
+            <div>
+              <label
+                htmlFor="guests"
+                className="block text-gray-700 font-medium mb-2"
+              >
+                Quantas pessoas vão na festa com você?
+              </label>
+              <input
+                id="guests"
+                type="number"
+                min={1}
+                max={10}
+                value={guestsCount}
+                onChange={(e) =>
+                  handleGuestsCountChange(Number(e.target.value))
+                }
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              />
+            </div>
+
+            {/* Guest names */}
+            <div className="space-y-2">
+              {guestNames.map((name, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  value={name}
+                  onChange={(e) => handleNameChange(index, e.target.value)}
+                  placeholder={`Nome do convidado ${index + 1}`}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>

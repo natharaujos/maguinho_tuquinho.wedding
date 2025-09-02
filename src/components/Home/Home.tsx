@@ -74,11 +74,13 @@ function Home() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         userEmail={user?.email || ""}
-        onConfirm={(guests) => {
+        onConfirm={(guests, guestNames) => {
           savePresenceConfirmation({
+            userName: user?.displayName || "",
             userEmail: user?.email || "",
-            guestsCount: guests,
+            guestsCount: guests + 1,
             confirmedAt: new Date(),
+            otherGuests: guestNames,
             status: "confirmed",
           });
         }}

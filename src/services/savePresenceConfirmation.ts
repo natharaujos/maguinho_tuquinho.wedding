@@ -2,9 +2,11 @@ import { db } from "../../firebase";
 import { collection, addDoc } from "firebase/firestore";
 
 export interface PresenceConfirmation {
+  userName: string;
   userEmail: string;
   guestsCount: number;
   confirmedAt: Date;
+  otherGuests: string[];
   status: "confirmed" | "canceled";
 }
 

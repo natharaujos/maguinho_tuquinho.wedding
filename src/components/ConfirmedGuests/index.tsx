@@ -3,10 +3,12 @@ import { collection, query, getDocs, Timestamp } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 interface ConfirmedGuest {
+  userName: string;
   userEmail: string;
   guestsCount: number;
   confirmedAt: Timestamp;
   status: "confirmed" | "canceled";
+  otherGuests?: string[]; // new field
 }
 
 export function ConfirmedGuests() {
@@ -25,7 +27,6 @@ export function ConfirmedGuests() {
 
         querySnapshot.forEach((doc) => {
           const data = doc.data() as ConfirmedGuest;
-          // Convert Firestore Timestamp to Date
           confirmedGuests.push(data);
           total += data.guestsCount;
         });
@@ -65,24 +66,33 @@ export function ConfirmedGuests() {
 
       <div className="grid gap-4">
         {guests.map((guest, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-lg shadow p-4 flex justify-between items-center"
-          >
-            <div>
-              <p className="font-medium text-gray-700">{guest.userEmail}</p>
-              <p className="text-sm text-gray-500">
-                Confirmado em:{" "}
-                {guest.confirmedAt.toDate().toLocaleDateString("pt-BR", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </p>
-            </div>
-            <div className="bg-pink-100 text-pink-700 px-3 py-1 rounded-full font-medium">
+          <div key={index} className="bg-white rounded-lg shadow p-4">
+            {/* User email */}
+            <p className="font-medium text-gray-700">
+              {guest.userName} - {guest.userEmail}
+            </p>
+            <p className="text-sm text-gray-500 mb-2">
+              Confirmado em:{" "}
+              {guest.confirmedAt.toDate().toLocaleDateString("pt-BR", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </p>
+
+            {/* Guest names */}
+            {guest.otherGuests && guest.otherGuests.length > 0 && (
+              <ul className="list-disc list-inside text-gray-600 mb-2">
+                {guest.otherGuests.map((name, idx) => (
+                  <li key={idx}>{name}</li>
+                ))}
+              </ul>
+            )}
+
+            {/* Badge with count */}
+            <div className="bg-pink-100 text-pink-700 inline-block px-3 py-1 rounded-full font-medium">
               {guest.guestsCount}{" "}
               {guest.guestsCount === 1 ? "pessoa" : "pessoas"}
             </div>
