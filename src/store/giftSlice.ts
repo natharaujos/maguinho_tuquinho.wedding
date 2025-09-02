@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import giftData from "../constants/gifts";
+import { giftData } from "../constants/gifts";
 
 export type Gift = {
   id: number;
