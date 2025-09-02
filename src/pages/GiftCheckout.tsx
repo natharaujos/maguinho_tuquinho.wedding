@@ -19,6 +19,7 @@ function GiftCheckout() {
   const [buyerName, setBuyerName] = useState("");
   const [loading, setLoading] = useState(false);
   const [gift, setGift] = useState<Gift | null>(null);
+  const [quantity, setQuantity] = useState(1);
   const [user] = useAuthState(auth);
 
   let docRef: DocumentReference<DocumentData>;
@@ -33,28 +34,42 @@ function GiftCheckout() {
     };
 
     getGiftDetails();
-  }, []);
+  }, [id]);
 
   const handlePayment = async () => {
     setLoading(true);
     if (!buyerName.trim()) {
       alert("Por favor, informe seu nome.");
+      setLoading(false);
       return;
     }
-    setLoading(true);
     try {
+      const totalAmount = (gift?.price || 0) * quantity;
       const paymentRecord = {
         giftId: id,
         giftTitle: gift?.title,
         buyerName,
         buyerEmail: user?.email,
-        amount: gift?.price,
+        amount: totalAmount,
+        quantity,
         mpPaymentId: "",
         status: "pending",
         createdAt: new Date(),
       };
       const response = await addDoc(collection(db, "payments"), paymentRecord);
       docRef = response;
+
+      if (gift) {
+        navigate(`/gift/${id}/options`, {
+          state: {
+            docRefId: docRef.id,
+            giftTitle: gift.title,
+            giftPrice: totalAmount,
+            buyerName,
+            quantity,
+          },
+        });
+      }
     } catch (error) {
       console.error(error);
       alert(
@@ -63,18 +78,6 @@ function GiftCheckout() {
     } finally {
       setLoading(false);
     }
-
-    if (gift) {
-      navigate(`/gift/${id}/options`, {
-        state: {
-          docRefId: docRef.id,
-          giftTitle: gift.title,
-          giftPrice: gift.price,
-          buyerName,
-        },
-      });
-    }
-    setLoading(false);
   };
 
   if (!gift) {
@@ -87,6 +90,8 @@ function GiftCheckout() {
     );
   }
 
+  const totalPrice = (gift.price * quantity).toFixed(2);
+
   return (
     <div className="max-w-xl mx-auto px-4 py-12 text-center">
       <img
@@ -95,7 +100,33 @@ function GiftCheckout() {
         className="w-50 rounded-md mb-6 mx-auto"
       />
       <h2 className="text-2xl font-bold">{gift.title}</h2>
-      <p className="text-lg text-gray-600 mb-4">R$ {gift.price.toFixed(2)}</p>
+      <p className="text-lg text-gray-600 mb-2">
+        R$ {gift.price.toFixed(2)} cada
+      </p>
+
+      {/* Quantidade com botões + - */}
+      <div className="flex items-center justify-center gap-3 mb-4">
+        <button
+          onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+          className="px-3 py-1 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+        >
+          -
+        </button>
+        <span className="text-lg font-semibold w-8 text-center">
+          {quantity}
+        </span>
+        <button
+          onClick={() => setQuantity((q) => q + 1)}
+          className="px-3 py-1 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+        >
+          +
+        </button>
+      </div>
+
+      {/* Total */}
+      <p className="text-lg font-semibold text-gray-800 mb-6">
+        Total: R$ {totalPrice}
+      </p>
 
       <input
         type="text"
