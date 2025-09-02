@@ -1,6 +1,7 @@
 import Button from "../Button/Button";
 import Countdown from "../Countdown/Countdown";
 import foto from "../../assets/main_pic.jfif";
+import church from "../../assets/church.jfif";
 import { useState } from "react";
 import { ConfirmPresenceModal } from "../ConfirmPresence";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -20,7 +21,7 @@ function Home() {
         <img
           src={foto}
           alt="Casal"
-          className="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover shadow-lg"
+          className="rounded-full w-48 h-48 md:w-72 md:h-72 object-cover shadow-lg"
         />
 
         <h1 className="text-3xl md:text-5xl font-bold text-pink-700 mt-6">
@@ -28,16 +29,33 @@ function Home() {
         </h1>
 
         <p className="text-lg md:text-xl text-gray-700 mt-4 max-w-xl">
-          Com muito amor, convidamos você para celebrar conosco esse momento tão
-          especial.
+          Queridos amigos e familiares,
         </p>
+
+        <p className="text-lg md:text-xl text-gray-700 mt-4 max-w-xl">
+          O momento tão esperado está cada vez mais próximo e não poderíamos
+          estar mais felizes em compartilhar essa jornada com vocês! Cada passo
+          da nossa história de amor nos trouxe até aqui, e o nosso grande dia,
+          escolhido por Deus para unir nossas vidas, já enche nossos corações de
+          alegria e expectativa
+        </p>
+
+        <h2 className="text-2xl md:text-4xl font-bold text-pink-700 mt-6">
+          Cerimônia
+        </h2>
+
+        <img
+          src={church}
+          alt="Igreja"
+          className="rounded-sm w-48 h-48 md:w-96 md:h-96 object-cover shadow-lg mt-4 "
+        />
 
         <div className="mt-6 text-base md:text-lg text-gray-800 space-y-1">
           <p>
-            <strong>Data:</strong> 25 de Outubro de 2025
+            <strong>Data:</strong> 25 de Outubro de 2025, às 10:00
           </p>
           <p>
-            <strong>Local:</strong> Igreja Nossa Senhora Aparecida
+            <strong>Local:</strong> Santuário Nossa Senhora Aparecida
           </p>
         </div>
 

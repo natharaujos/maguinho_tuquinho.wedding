@@ -15,6 +15,7 @@ import { ConfirmedGuests } from "./components/ConfirmedGuests";
 import { MyContributions } from "./components/MyContributions";
 import AdminRoute from "./components/AdminRoute";
 import AllContributions from "./components/AllContributions";
+import Reception from "./components/Reception";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                   <>
                     <Home />
                     <Location />
+                    <Reception />
                     <OurHistory />
                     <GiftList />
                   </>
