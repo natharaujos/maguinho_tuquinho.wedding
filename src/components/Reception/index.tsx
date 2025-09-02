@@ -1,6 +1,3 @@
-import Button from "../Button/Button";
-//import ranchao from "../../assets/ranchao.jpg"; // Add this image to your assets
-
 function Reception() {
   return (
     <section id="recepcao" className="max-w-4xl mx-auto px-4 py-16">
