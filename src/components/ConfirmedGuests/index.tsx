@@ -1,20 +1,42 @@
 import { useEffect, useState } from "react";
-import { collection, query, getDocs, Timestamp } from "firebase/firestore";
-import { db } from "../../../firebase";
+import {
+  collection,
+  query,
+  getDocs,
+  Timestamp,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { db, auth } from "../../../firebase"; // certifique-se de exportar auth no seu firebase.ts
+import { Dialog } from "@mui/material";
+import admins from "../../constants/admins";
 
 interface ConfirmedGuest {
-  userName: string;
+  id: string;
   userEmail: string;
   guestsCount: number;
   confirmedAt: Timestamp;
   status: "confirmed" | "canceled";
-  otherGuests?: string[]; // new field
+  otherGuests?: string[];
 }
 
 export function ConfirmedGuests() {
   const [guests, setGuests] = useState<ConfirmedGuest[]>([]);
   const [totalGuests, setTotalGuests] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+
+  // controle do modal de confirmação
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedGuestId, setSelectedGuestId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     async function fetchConfirmedGuests() {
@@ -25,9 +47,9 @@ export function ConfirmedGuests() {
         const confirmedGuests: ConfirmedGuest[] = [];
         let total = 0;
 
-        querySnapshot.forEach((doc) => {
-          const data = doc.data() as ConfirmedGuest;
-          confirmedGuests.push(data);
+        querySnapshot.forEach((d) => {
+          const data = d.data() as Omit<ConfirmedGuest, "id">;
+          confirmedGuests.push({ id: d.id, ...data });
           total += data.guestsCount;
         });
 
@@ -42,6 +64,27 @@ export function ConfirmedGuests() {
 
     fetchConfirmedGuests();
   }, []);
+
+  const handleDelete = async () => {
+    if (!selectedGuestId) return;
+
+    try {
+      await deleteDoc(doc(db, "presenceConfirmations", selectedGuestId));
+      setGuests((prev) => prev.filter((g) => g.id !== selectedGuestId));
+      setTotalGuests(
+        (prev) =>
+          prev -
+          (guests.find((g) => g.id === selectedGuestId)?.guestsCount || 0)
+      );
+    } catch (error) {
+      console.error("Erro ao excluir confirmação:", error);
+    } finally {
+      setConfirmOpen(false);
+      setSelectedGuestId(null);
+    }
+  };
+
+  const isAdmin = currentUser && admins.includes(currentUser.email || "");
 
   if (loading) {
     return (
@@ -65,12 +108,12 @@ export function ConfirmedGuests() {
       </div>
 
       <div className="grid gap-4">
-        {guests.map((guest, index) => (
-          <div key={index} className="bg-white rounded-lg shadow p-4">
-            {/* User email */}
-            <p className="font-medium text-gray-700">
-              {guest.userName} - {guest.userEmail}
-            </p>
+        {guests.map((guest) => (
+          <div
+            key={guest.id}
+            className="bg-white rounded-lg shadow p-4 relative"
+          >
+            <p className="font-medium text-gray-700">{guest.userEmail}</p>
             <p className="text-sm text-gray-500 mb-2">
               Confirmado em:{" "}
               {guest.confirmedAt.toDate().toLocaleDateString("pt-BR", {
@@ -82,7 +125,6 @@ export function ConfirmedGuests() {
               })}
             </p>
 
-            {/* Guest names */}
             {guest.otherGuests && guest.otherGuests.length > 0 && (
               <ul className="list-disc list-inside text-gray-600 mb-2">
                 {guest.otherGuests.map((name, idx) => (
@@ -91,11 +133,22 @@ export function ConfirmedGuests() {
               </ul>
             )}
 
-            {/* Badge with count */}
             <div className="bg-pink-100 text-pink-700 inline-block px-3 py-1 rounded-full font-medium">
               {guest.guestsCount}{" "}
               {guest.guestsCount === 1 ? "pessoa" : "pessoas"}
             </div>
+
+            {isAdmin && (
+              <button
+                onClick={() => {
+                  setSelectedGuestId(guest.id);
+                  setConfirmOpen(true);
+                }}
+                className="absolute top-3 right-3 px-3 py-1 text-sm font-medium text-white bg-red-500 rounded-md shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 transition-colors duration-200"
+              >
+                Remover
+              </button>
+            )}
           </div>
         ))}
 
@@ -105,6 +158,40 @@ export function ConfirmedGuests() {
           </p>
         )}
       </div>
+
+      {/* 🔥 Modal de confirmação */}
+      <Dialog
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        maxWidth="xs"
+        fullWidth
+        PaperProps={{
+          className: "p-6 rounded-lg",
+        }}
+      >
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          Confirmar exclusão
+        </h3>
+        <p className="text-gray-600 mb-6">
+          Tem certeza que deseja remover esta confirmação? Esta ação não pode
+          ser desfeita.
+        </p>
+
+        <div className="flex justify-end space-x-3">
+          <button
+            onClick={() => setConfirmOpen(false)}
+            className="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors duration-200"
+          >
+            Cancelar
+          </button>
+          <button
+            onClick={handleDelete}
+            className="px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors duration-200"
+          >
+            Remover
+          </button>
+        </div>
+      </Dialog>
     </section>
   );
 }
