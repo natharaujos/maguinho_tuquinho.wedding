@@ -14,6 +14,7 @@ import admins from "../../constants/admins";
 
 interface ConfirmedGuest {
   id: string;
+  userName: string;
   userEmail: string;
   guestsCount: number;
   confirmedAt: Timestamp;
@@ -113,7 +114,9 @@ export function ConfirmedGuests() {
             key={guest.id}
             className="bg-white rounded-lg shadow p-4 relative"
           >
-            <p className="font-medium text-gray-700">{guest.userEmail}</p>
+            <p className="font-medium text-gray-700">
+              {guest.userName} - {guest.userEmail}
+            </p>
             <p className="text-sm text-gray-500 mb-2">
               Confirmado em:{" "}
               {guest.confirmedAt.toDate().toLocaleDateString("pt-BR", {
