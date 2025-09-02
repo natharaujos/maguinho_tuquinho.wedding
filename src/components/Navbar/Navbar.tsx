@@ -51,7 +51,7 @@ function Navbar() {
         </a>
 
         {/* Ícone do menu mobile */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="text-pink-600 focus:outline-none"
@@ -61,7 +61,7 @@ function Navbar() {
         </div>
 
         {/* Links do menu (desktop) */}
-        <div className="hidden md:flex space-x-6">
+        <div className="hidden lg:flex space-x-6">
           {navLinks.map((link) => (
             <button
               key={link.label}
@@ -76,7 +76,7 @@ function Navbar() {
 
       {/* Menu colapsado (mobile) */}
       {isOpen && (
-        <div className="md:hidden bg-white px-4 pb-4">
+        <div className="lg:hidden bg-white px-4 pb-4">
           {navLinks.map((link) => (
             <button
               key={link.label}
