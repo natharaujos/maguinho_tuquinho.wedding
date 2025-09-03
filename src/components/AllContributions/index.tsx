@@ -112,23 +112,23 @@ function AllContributions() {
   if (loading) {
     return (
       <div className="flex justify-center items-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#D4AF7F]"></div>
       </div>
     );
   }
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-12">
-      <h2 className="text-2xl font-bold text-pink-700 text-center mb-8">
+      <h2 className="text-2xl font-bold text-[#D4AF7F] text-center mb-8">
         Todos os Presentes
       </h2>
 
       <div className="bg-white rounded-lg shadow p-4 mb-8">
         <h3 className="text-lg font-semibold text-gray-700 mb-2">Resumo</h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-pink-50 p-4 rounded-lg">
+          <div className="bg-[#F4D4C1] p-4 rounded-lg">
             <p className="text-sm text-gray-600">Total de Presentes</p>
-            <p className="text-2xl font-bold text-pink-700">
+            <p className="text-2xl font-bold text-[#D4AF7F]">
               {payments.length}
             </p>
           </div>

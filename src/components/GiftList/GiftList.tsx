@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { useLoading } from "../../contexts/LoadingContext";
+import Button from "../Button/Button";
 
 interface Gift {
   id: string;
@@ -56,7 +57,7 @@ export default function GiftList() {
 
   return (
     <section id="presentes" className="max-w-7xl mx-auto px-4 py-16">
-      <h2 className="text-4xl font-bold text-pink-600 mb-8 text-center">
+      <h2 className="text-4xl font-bold text-[#3A3A3A] mb-8 text-center">
         Lista de Presentes
       </h2>
 
@@ -74,19 +75,17 @@ export default function GiftList() {
             <h3 className="text-lg font-semibold text-gray-800 mb-2 text-center">
               {title}
             </h3>
-            <p className="text-pink-600 font-bold mb-4">
+            <p className="text-[#D4AF7F] font-bold mb-4">
               R$ {price.toFixed(2)}
             </p>
-            <button
+            <Button
               onClick={() => {
                 setLoadingWithDelay(true);
                 navigate(`/gift/${id}`);
                 setLoadingWithDelay(false);
               }}
-              className="bg-pink-600 text-white rounded-md px-4 py-2 hover:bg-pink-700 transition"
-            >
-              Presentear
-            </button>
+              text="Presentear"
+            />
           </div>
         ))}
       </div>
@@ -99,7 +98,7 @@ export default function GiftList() {
           className={`px-4 py-2 rounded-md ${
             currentPage === 1
               ? "bg-gray-300 cursor-not-allowed"
-              : "bg-pink-600 text-white hover:bg-pink-700"
+              : "bg-[#D4AF7F] text-white hover:bg-[#F4D4C1]"
           }`}
         >
           Prev
@@ -113,8 +112,8 @@ export default function GiftList() {
               onClick={() => setCurrentPage(pageNum)}
               className={`px-4 py-2 rounded-md ${
                 currentPage === pageNum
-                  ? "bg-pink-800 text-white"
-                  : "bg-pink-600 text-white hover:bg-pink-700"
+                  ? "bg-[#D4AF7F] text-white cursor-pointer"
+                  : "bg-[#D4AF7F] text-white hover:bg-[#F4D4C1] cursor-pointer"
               }`}
             >
               {pageNum}
@@ -130,7 +129,7 @@ export default function GiftList() {
           className={`px-4 py-2 rounded-md ${
             currentPage === totalPages
               ? "bg-gray-300 cursor-not-allowed"
-              : "bg-pink-600 text-white hover:bg-pink-700"
+              : "bg-[#D4AF7F] text-white hover:bg-[#F4D4C1] cursor-pointer"
           }`}
         >
           Next

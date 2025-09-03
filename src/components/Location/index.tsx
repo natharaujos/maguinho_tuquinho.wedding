@@ -1,20 +1,18 @@
+import Button from "../Button/Button";
+
 function Location() {
   return (
     <section id="localizacao" className="max-w-4xl mx-auto px-4 py-16">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-pink-600 mb-4">Localização</h2>
+        <h2 className="text-3xl font-bold text-[#3A3A3A] mb-4">Localização</h2>
         <p className="text-gray-600 mb-2">Paróquia Nossa Senhora Aparecida</p>
         <p className="text-gray-600 mb-4">
-          R. Miguel Valentino, 67 - Aparecida, Oliveira - MG, 35540-000
+          Praça Miguel Madeira, 85 - Aparecida, Oliveira - MG, 35540-000
         </p>
-        <a
-          href="https://maps.google.com/maps?q=Paróquia+Nossa+Senhora+Aparecida+oliveira+mg"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700 transition-colors mb-8"
-        >
-          Como Chegar
-        </a>
+        <Button
+          link="https://maps.google.com/maps?q=Paróquia+Nossa+Senhora+Aparecida+oliveira+mg"
+          text="Como chegar"
+        />
       </div>
 
       <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-lg border-4 border-white">

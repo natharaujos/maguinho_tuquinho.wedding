@@ -44,7 +44,7 @@ function Navbar() {
         {/* Logo / Nome dos noivos */}
         <a
           href="#home"
-          className="text-2xl font-bold text-pink-600 cursor-pointer"
+          className="text-2xl font-bold text-[#D4AF7F] cursor-pointer"
           onClick={() => navigate("/")}
         >
           Maguinha & Tuquinho
@@ -54,7 +54,7 @@ function Navbar() {
         <div className="lg:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-pink-600 focus:outline-none"
+            className="text-[#3A3A3A] focus:outline-none"
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>

@@ -122,7 +122,7 @@ export function MyContributions() {
 
   return (
     <section className="max-w-4xl mx-auto px-4 py-12">
-      <h2 className="text-2xl font-bold text-pink-700 text-center mb-8">
+      <h2 className="text-2xl font-bold text-[#D4AF7F] text-center mb-8">
         Minhas Contribuições
       </h2>
 
@@ -168,7 +168,7 @@ export function MyContributions() {
       <div className="flex justify-end">
         <Link
           to="/"
-          className="mt-8 inline-block px-6 py-3 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition"
+          className="mt-8 inline-block px-6 py-3 bg-[#D4AF7F] text-white rounded-md hover:bg-[#F4D4C1] transition"
         >
           Voltar para a página inicial
         </Link>

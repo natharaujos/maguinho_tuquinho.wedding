@@ -97,14 +97,14 @@ export function ConfirmedGuests() {
 
   return (
     <section className="max-w-4xl mx-auto px-4 py-12">
-      <h2 className="text-2xl font-bold text-pink-700 text-center mb-8">
+      <h2 className="text-2xl font-bold text-[#D4AF7F] text-center mb-8">
         Presenças Confirmadas
       </h2>
 
       <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
         <p className="text-center text-lg font-medium text-gray-700">
           Total de Convidados Confirmados:
-          <span className="text-pink-600 ml-2">{totalGuests}</span>
+          <span className="text-[#D4AF7F] ml-2">{totalGuests}</span>
         </p>
       </div>
 
@@ -136,7 +136,7 @@ export function ConfirmedGuests() {
               </ul>
             )}
 
-            <div className="bg-pink-100 text-pink-700 inline-block px-3 py-1 rounded-full font-medium">
+            <div className="bg-[#F4D4C1] text-[#D4AF7F] inline-block px-3 py-1 rounded-full font-medium">
               {guest.guestsCount}{" "}
               {guest.guestsCount === 1 ? "pessoa" : "pessoas"}
             </div>

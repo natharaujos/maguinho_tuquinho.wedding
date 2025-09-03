@@ -15,7 +15,7 @@ function Home() {
   return (
     <section
       id="home"
-      className="min-h-screen pt-24 px-4 py-12 sm:px-6 md:px-8 bg-pink-50"
+      className="min-h-screen pt-24 px-4 py-12 sm:px-6 md:px-8 bg-[#F4D4C1]"
     >
       <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
         <img
@@ -24,7 +24,7 @@ function Home() {
           className="rounded-full w-48 h-48 md:w-72 md:h-72 object-cover shadow-lg"
         />
 
-        <h1 className="text-3xl md:text-5xl font-bold text-pink-700 mt-6">
+        <h1 className="text-3xl md:text-5xl font-bold text-[#3A3A3A] mt-6">
           Bem-vindos ao nosso casamento!
         </h1>
 
@@ -40,7 +40,7 @@ function Home() {
           alegria e expectativa
         </p>
 
-        <h2 className="text-2xl md:text-4xl font-bold text-pink-700 mt-6">
+        <h2 className="text-2xl md:text-4xl font-bold text-[#3A3A3A] mt-6">
           Cerimônia
         </h2>
 

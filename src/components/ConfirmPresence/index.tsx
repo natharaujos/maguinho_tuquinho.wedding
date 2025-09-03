@@ -83,19 +83,19 @@ export function ConfirmPresenceModal({
         className: "p-6 rounded-lg",
       }}
     >
-      <div className="text-2xl font-bold text-pink-700 text-center mb-6">
+      <div className="text-2xl font-bold text-[#D4AF7F] text-center mb-6">
         Confirmação de Presença
       </div>
 
       <div className="space-y-6">
         <div>
           <span className="text-gray-700 font-medium">Seu e-mail:</span>
-          <p className="text-pink-600 mt-1">{userEmail}</p>
+          <p className="text-[#D4AF7F] mt-1">{userEmail}</p>
         </div>
 
         {loading ? (
           <div className="text-center py-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#D4AF7F] mx-auto"></div>
           </div>
         ) : alreadyConfirmed ? (
           <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4 text-yellow-800">
@@ -153,7 +153,7 @@ export function ConfirmPresenceModal({
         {!alreadyConfirmed && (
           <button
             onClick={handleConfirm}
-            className="px-4 py-2 text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors duration-200"
+            className="px-4 py-2 text-white bg-[#D4AF7F] rounded-md hover:bg-[#F4D4C1] transition-colors duration-200 cursor-pointer"
           >
             Confirmar Presença
           </button>

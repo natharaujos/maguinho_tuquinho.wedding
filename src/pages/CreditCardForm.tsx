@@ -289,7 +289,7 @@ export default function CreditCardForm() {
           <button
             type="submit"
             disabled={!isValid}
-            className="w-full bg-pink-600 text-white py-3 rounded hover:bg-pink-700 transition disabled:opacity-50"
+            className="w-full bg-[#D4AF7F] text-white py-3 rounded hover:bg-[#F4D4C1] transition disabled:opacity-50"
           >
             {loading ? "Processando…" : `Pagar R$ ${giftPrice.toFixed(2)}`}
           </button>

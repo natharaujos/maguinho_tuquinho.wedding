@@ -2,7 +2,7 @@ function Reception() {
   return (
     <section id="recepcao" className="max-w-4xl mx-auto px-4 py-16">
       <div className="flex flex-col items-center text-center">
-        <h2 className="text-3xl md:text-5xl font-bold text-pink-700 mb-8">
+        <h2 className="text-3xl md:text-5xl font-bold text-[#3A3A3A] mb-8">
           Recepção
         </h2>
 
@@ -18,7 +18,7 @@ function Reception() {
         /> */}
 
         <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-2xl mt-8">
-          <h3 className="text-2xl font-bold text-pink-600 mb-4">
+          <h3 className="text-2xl font-bold text-[#3A3A3A] mb-4">
             Comanda Individual
           </h3>
 
@@ -41,7 +41,7 @@ function Reception() {
           </div>
         </div>
 
-        <div className="mt-8 bg-pink-50 rounded-lg p-6 w-full max-w-2xl">
+        <div className="mt-8 bg-[#F4D4C1] rounded-lg p-6 w-full max-w-2xl">
           <p className="text-gray-700 mb-4">
             Por favor, confirme sua presença aqui no site e realize o pagamento
             até dia 10/10/25 para que possamos colocar seu nome na lista.
@@ -49,7 +49,7 @@ function Reception() {
 
           <div className="bg-white rounded-lg p-4 mb-6">
             <p className="font-medium text-gray-800">Chave pix:</p>
-            <p className="text-pink-600">37 99981-6852 (Magda Araujo)</p>
+            <p className="text-[#3A3A3A]">37 99981-6852 (Magda Araujo)</p>
           </div>
 
           <div className="space-y-2 text-gray-700">
