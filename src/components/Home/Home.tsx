@@ -21,7 +21,7 @@ function Home() {
         <img
           src={main_pic}
           alt="Casal"
-          className="w-48 h-48 md:w-[400px] md:h-[400px] object-cover rounded-3xl"
+          className="w-48 h-48 md:w-[550px] md:h-[550px] object-cover rounded-3xl"
         />
 
         <h1 className="text-3xl md:text-5xl font-bold text-[#3A3A3A] mt-6">
