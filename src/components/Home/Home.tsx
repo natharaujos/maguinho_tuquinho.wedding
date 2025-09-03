@@ -6,7 +6,7 @@ import { ConfirmPresenceModal } from "../ConfirmPresence";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase";
 import { savePresenceConfirmation } from "../../services/savePresenceConfirmation";
-import main_pic from "../../assets/picture-removebg-preview.png";
+import main_pic from "../../assets/main_2-removebg-preview.png";
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +21,7 @@ function Home() {
         <img
           src={main_pic}
           alt="Casal"
-          className="w-48 h-48 md:w-96 md:h-96 object-cover rounded-3xl"
+          className="w-48 h-48 md:w-[400px] md:h-[400px] object-cover rounded-3xl"
         />
 
         <h1 className="text-3xl md:text-5xl font-bold text-[#3A3A3A] mt-6">
