@@ -15,15 +15,26 @@ function OurHistory({
 }: OurHistoryProps) {
   return (
     <section id="historia" className="max-w-6xl mx-auto px-4 py-16 sm:py-24">
-      <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+      <div className="flex flex-col items-center gap-8">
         {/* Imagens */}
-        <div className="md:w-full grid grid-cols-5 gap-4">
+        <div
+          className="
+            grid 
+            grid-cols-1 
+            sm:grid-cols-2 
+            md:grid-cols-3 
+            lg:grid-cols-4 
+            xl:grid-cols-5 
+            gap-4
+            w-full
+          "
+        >
           {images.map((src, idx) => (
             <img
               key={idx}
               src={src}
               alt={`Nossa história imagem ${idx + 1}`}
-              className="rounded-lg object-cover w-full h-48 md:h-72 md:w-72 shadow-lg"
+              className="rounded-lg object-cover w-full h-56 sm:h-64 md:h-72 shadow-lg"
             />
           ))}
         </div>
