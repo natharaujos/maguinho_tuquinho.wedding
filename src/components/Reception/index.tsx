@@ -63,7 +63,7 @@ function Reception() {
 
         <div className="mt-6 text-sm text-gray-600 space-y-2">
           <p>Crianças até 7 anos não pagam</p>
-          <p>Crianças de 7 a 12 anos pagam 40,00</p>
+          <p>Crianças de 8 a 12 anos pagam 40,00</p>
           <p>A partir de 13 anos, valor normal</p>
         </div>
 
