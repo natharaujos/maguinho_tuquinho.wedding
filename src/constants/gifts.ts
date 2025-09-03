@@ -3,67 +3,67 @@ import type { Gift } from "../store/giftSlice";
 
 export const giftData: Gift[] = [
   {
-    id: 1,
+    id: 92929,
+    title: "Cesto Organizador Bambu Roupa Suja Banheiro ",
+    image:
+      "https://m.media-amazon.com/images/I/616RHSw3TRL._AC_SY300_SX300_QL70_ML2_.jpg",
+    price: new Price(60.0).getSummary(),
+  },
+  {
+    id: 837,
+    title: "Processador Britânia Compacto Bmp900p Turbo 250",
+    image:
+      "https://m.media-amazon.com/images/I/51zg+5SlnPL._AC_SY300_SX300_QL70_ML2_.jpg",
+    price: new Price(250.0).getSummary(),
+  },
+  {
+    id: 4944,
     title:
-      "5 Toalhas de Banho Grande Algodão LAUNE HAUS Macia Alta Absorção (Pérola)",
-    image: "https://m.media-amazon.com/images/I/614LkAPuueL._AC_UL320_.jpg",
-    price: new Price(0.01).getSummary(),
+      "Jogo 6 Copos Kit Long Drink Grande 480ml Água Suco Cozinha Cor Transparente",
+    image: "https://m.media-amazon.com/images/I/61DPhpnqW+L._AC_SX425_.jpg",
+    price: new Price(55.9).getSummary(),
   },
   {
-    id: 2,
-    title: "Panela de Pressão Mecanica, 6L, Inox/Preto, 220v, Midea",
-    image: "https://m.media-amazon.com/images/I/51XIBGrRxTL._AC_SL1000_.jpg",
-    price: new Price(220.0).getSummary(),
-  },
-  {
-    id: 3,
-    title: "Aparelho de Jantar, Chá 20 peças Ryo Maresias TB",
-    image: "https://m.media-amazon.com/images/I/51HjUseflNS._AC_UL320_.jpg",
-    price: new Price(359.9).getSummary(),
-  },
-  {
-    id: 4,
-    title:
-      "Cafeteira Elétrica 15 Xícaras Elgin Coffee Break Sistema Corta-pingos Preta 220V",
-    image: "https://m.media-amazon.com/images/I/51dUZHS5pTL._AC_SL1097_.jpg",
-    price: new Price(189.9).getSummary(),
-  },
-  {
-    id: 5,
-    title:
-      "Kit para Cozinha 12 Peças com Jogo de Panelas Vermelho e Utensilios Tramontina Turim",
-    image: "https://m.media-amazon.com/images/I/61fBewt4rkL._AC_SL1200_.jpg",
-    price: new Price(449.9).getSummary(),
-  },
-  {
-    id: 7,
-    title: "Kit com 03 Luminarias Pendente Aramado Modelo Diamante (Preto)",
-    image: "https://m.media-amazon.com/images/I/51Ahp4ButiL._AC_SL1000_.jpg",
+    id: 3938,
+    title: "Centro De Mesa Giratório Wolff De Vidro Temperado 45cm",
+    image: "https://m.media-amazon.com/images/I/612bwkHckeL._AC_SL1500_.jpg",
     price: new Price(89.9).getSummary(),
   },
   {
-    id: 8,
-    title:
-      "Relógio de Parede Silencioso Prata em Alumínio Decorativo Minimalista Preto Aço Escovado",
-    image: "https://m.media-amazon.com/images/I/71xIa57yPQL._AC_SL1500_.jpg",
+    id: 4234234,
+    title: "Kit Cobre Leito casal 3 Peças Dupla Face",
+    image: "https://m.media-amazon.com/images/I/61GkVvJCQgL._AC_SL1000_.jpg",
+    price: new Price(99.9).getSummary(),
+  },
+  {
+    id: 49494,
+    title: "Jogo cama queen premium 3 peças",
+    image: "https://m.media-amazon.com/images/I/611lws2eU4L._AC_SL1500_.jpg",
     price: new Price(119.9).getSummary(),
   },
   {
-    id: 9,
+    id: 494984,
     title:
-      "Jogo De Lençol Cama Box King Size 4 Peças Percal 600 Fios Toque Macio Palha",
-    image: "https://m.media-amazon.com/images/I/31TgkyHJ3aL._AC_.jpg",
-    price: new Price(319.9).getSummary(),
+      "Panela Frigideira De Indução E Fogão A Gás Antiaderente De Cerâmica Reforçada Linha Premium - HYLLIS/HOME GOODS",
+    image: "https://m.media-amazon.com/images/I/617FtX4evoL._AC_SL1200_.jpg",
+    price: new Price(69.9).getSummary(),
   },
   {
-    id: 10,
+    id: 9879,
+    title:
+      "Kit 12 Pratos Quadrados 6 Pratos p/ Refeição + 6 Pratos p/ Sobremesa - Fortinjet-",
+    image: "https://m.media-amazon.com/images/I/51SE18n70vL._AC_SL1024_.jpg",
+    price: new Price(79.9).getSummary(),
+  },
+  {
+    id: 23425,
     title:
       "Vaso Decorativo Trio De Cerâmica 3 Unidades Decoração Sala Escritório Moderno (Preto)",
     image: "https://m.media-amazon.com/images/I/61EtP9uWiIL._AC_SL1080_.jpg",
     price: new Price(149.9).getSummary(),
   },
   {
-    id: 11,
+    id: 6645,
     title:
       "Frigideira Antiaderente, Base de Cerâmica, Cabo de Madeira, Frita Sem Óleo, Compatível Com Todos os Tipos de Fogões",
     image:
@@ -71,43 +71,46 @@ export const giftData: Gift[] = [
     price: new Price(129.9).getSummary(),
   },
   {
-    id: 12,
-    title: "Oster Torradeira Simple Life, 110V, Inox, 750W, OTOR600",
-    image: "https://m.media-amazon.com/images/I/51xnI3C5AGL._AC_SL1000_.jpg",
-    price: new Price(159.9).getSummary(),
+    id: 3453,
+    title: "Kit 4 Prato Branco De Vidro Fundo 22cm Blanc Duralex",
+    image:
+      "https://m.media-amazon.com/images/I/41+BwkTqfLL._AC_SY300_SX300_QL70_ML2_.jpg",
+    price: new Price(69.9).getSummary(),
   },
   {
-    id: 13,
-    title: "Liquidificador Oster 1400 Full, 3,2L, 110V, Preto, 1400W, OLIQ610",
-    image: "https://m.media-amazon.com/images/I/51oF48-a1BL._AC_SL1000_.jpg",
-    price: new Price(199.9).getSummary(),
-  },
-  {
-    id: 14,
-    title: "Espremedor Premium, Mondial, Preto, 30W, 220V - E-02",
-    image: "https://m.media-amazon.com/images/I/71DEK6jSqGL._AC_SL1500_.jpg",
-    price: new Price(59.9).getSummary(),
-  },
-  {
-    id: 15,
+    id: 556,
     title:
-      "Jogo de Facas Tramontina Plenus com Lâminas em Aço Inox e Cabos de Polipropileno Preto 10 Peças",
-    image: "https://m.media-amazon.com/images/I/51gJh6NTr0L._AC_SL1200_.jpg",
-    price: new Price(89.9).getSummary(),
+      "Jogo De Talheres Tramontina Colher Faca Garfo 24 Peças Búzios Inox Tramontina",
+    image:
+      "https://m.media-amazon.com/images/I/61NlXehlnBL._AC_SY300_SX300_QL70_ML2_.jpg",
+    price: new Price(78.9).getSummary(),
   },
   {
-    id: 16,
+    id: 7567,
     title:
-      "Assadeira Forma Retangular Antiaderente com Revestimento Interno 32, 37 ou 42 cm (42x29x5 cm)",
-    image: "https://m.media-amazon.com/images/I/51cQ4Rp1B8L._AC_SL1200_.jpg",
-    price: new Price(49.9).getSummary(),
+      "Coberdrom Casal Dupla Face Aveludado Cobertor Edredom Grosso e Super Macio Folhagem Habitat",
+    image: "https://m.media-amazon.com/images/I/61roJeJhwZL._AC_SL1000_.jpg",
+    price: new Price(269.9).getSummary(),
   },
   {
-    id: 18,
+    id: 223,
     title:
-      "Espelho Decorativo Orgânico Lapidado 90x60 Moderno - com suporte para fixação",
-    image: "https://m.media-amazon.com/images/I/71+s1ZVCiUL._AC_SL1500_.jpg",
-    price: new Price(169.9).getSummary(),
+      "Escorredor De Louça Em Aço Inox Com Drenagem Automática 360 Com 2 Níveis Porta Pratos e Talheres X-Matte",
+    image: "https://m.media-amazon.com/images/I/814RYS9E-7L._AC_SL1500_.jpg",
+    price: new Price(232.9).getSummary(),
+  },
+  {
+    id: 5959,
+    title: "Air Fryer Britânia Redestone BFR50 Preta com Timer 5,2L)",
+    image:
+      "https://m.media-amazon.com/images/I/51NKkmrtVEL._AC_SY300_SX300_QL70_ML2_.jpg",
+    price: new Price(249.9).getSummary(),
+  },
+  {
+    id: 442,
+    title: "Jogo Americano Redondo 6 Peças Mesa Posta Sousplat (Preto)",
+    image: "https://m.media-amazon.com/images/I/815mquPeGvL._AC_SL1500_.jpg",
+    price: new Price(78.9).getSummary(),
   },
 ];
 
