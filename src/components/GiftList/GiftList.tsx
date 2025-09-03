@@ -65,19 +65,22 @@ export default function GiftList() {
         {currentGifts.map(({ id, title, price, image }) => (
           <div
             key={id}
-            className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center"
+            className="bg-white rounded-lg shadow-md p-4 flex flex-col justify-between items-center h-full"
           >
-            <img
-              src={image}
-              alt={title}
-              className="w-32 h-32 object-contain mb-4"
-            />
-            <h3 className="text-lg font-semibold text-gray-800 mb-2 text-center">
-              {title}
-            </h3>
-            <p className="text-[#D4AF7F] font-bold mb-4">
-              R$ {price.toFixed(2)}
-            </p>
+            <div className="flex flex-col items-center">
+              <img
+                src={image}
+                alt={title}
+                className="w-32 h-32 object-contain mb-4"
+              />
+              <h3 className="text-lg font-semibold text-gray-800 mb-2 text-center">
+                {title}
+              </h3>
+              <p className="text-[#D4AF7F] font-bold mb-4">
+                R$ {price.toFixed(2)}
+              </p>
+            </div>
+
             <Button
               onClick={() => {
                 setLoadingWithDelay(true);
