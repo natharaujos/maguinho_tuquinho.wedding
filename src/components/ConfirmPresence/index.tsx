@@ -127,14 +127,16 @@ export function ConfirmPresenceModal({
             {/* Guest names */}
             <div className="space-y-2">
               {guestNames.map((name, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  value={name}
-                  onChange={(e) => handleNameChange(index, e.target.value)}
-                  placeholder={`Nome do convidado ${index + 1}`}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-                />
+                <div>
+                  <input
+                    key={index}
+                    type="text"
+                    value={name}
+                    onChange={(e) => handleNameChange(index, e.target.value)}
+                    placeholder={`Nome do convidado ${index + 1}`}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  />
+                </div>
               ))}
             </div>
           </div>
