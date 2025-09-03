@@ -157,7 +157,7 @@ export default function CreditCardForm() {
   };
 
   const baseInputClass =
-    "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-600 transition";
+    "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4AF7F] transition";
 
   const errorInputClass = "border-red-500";
 

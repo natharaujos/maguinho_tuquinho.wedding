@@ -65,7 +65,7 @@ function Navbar() {
           {navLinks.map((link) => (
             <button
               key={link.label}
-              className="text-gray-700 hover:text-pink-600 transition font-medium cursor-pointer"
+              className="text-gray-700 hover:text-[#D4AF7F] transition font-medium cursor-pointer"
               onClick={link.onClick}
             >
               {link.label}
@@ -84,7 +84,7 @@ function Navbar() {
                 link.onClick();
                 setIsOpen(false);
               }}
-              className="block py-2 text-gray-700 hover:text-pink-600"
+              className="block py-2 text-gray-700 hover:text-[#D4AF7F]"
             >
               {link.label}
             </button>

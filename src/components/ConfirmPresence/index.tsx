@@ -120,7 +120,7 @@ export function ConfirmPresenceModal({
                 onChange={(e) =>
                   handleGuestsCountChange(Number(e.target.value))
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4AF7F] focus:border-[#D4AF7F]"
               />
             </div>
 
@@ -134,7 +134,7 @@ export function ConfirmPresenceModal({
                     value={name}
                     onChange={(e) => handleNameChange(index, e.target.value)}
                     placeholder={`Nome do convidado ${index + 1}`}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4AF7F] focus:border-[#D4AF7F]"
                   />
                 </div>
               ))}

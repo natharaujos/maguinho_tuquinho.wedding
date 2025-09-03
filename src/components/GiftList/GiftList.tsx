@@ -46,7 +46,7 @@ export default function GiftList() {
   if (loading)
     return (
       <div className="flex justify-center items-center py-16">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D4AF7F]"></div>
       </div>
     );
 
