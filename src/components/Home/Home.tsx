@@ -78,7 +78,7 @@ function Home() {
           savePresenceConfirmation({
             userName: user?.displayName || "",
             userEmail: user?.email || "",
-            guestsCount: guests + 1,
+            guestsCount: guests,
             confirmedAt: new Date(),
             otherGuests: guestNames,
             status: "confirmed",

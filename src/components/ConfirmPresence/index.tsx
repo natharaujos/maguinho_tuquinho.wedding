@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Dialog } from "@mui/material";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { auth, db } from "../../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 type ConfirmPresenceModalProps = {
   isOpen: boolean;
@@ -21,6 +22,7 @@ export function ConfirmPresenceModal({
   const [loading, setLoading] = useState(false);
   const [alreadyConfirmed, setAlreadyConfirmed] = useState(false);
   const [noExtraGuests, setNoExtraGuests] = useState(false);
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     async function checkExistingConfirmation() {
@@ -70,7 +72,7 @@ export function ConfirmPresenceModal({
 
   const handleConfirm = () => {
     if (alreadyConfirmed) return;
-    onConfirm(guestsCount, guestNames);
+    onConfirm(guestsCount + 1, [user?.displayName || "", ...guestNames]);
     onClose();
   };
 
@@ -151,6 +153,14 @@ export function ConfirmPresenceModal({
                 </div>
               </div>
 
+              <input
+                type="text"
+                value={user?.displayName || ""}
+                required
+                disabled
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4AF7F] focus:border-[#D4AF7F]"
+              />
+
               {/* Guest names */}
               {!noExtraGuests && (
                 <div className="space-y-2">
@@ -162,7 +172,7 @@ export function ConfirmPresenceModal({
                         onChange={(e) =>
                           handleNameChange(index, e.target.value)
                         }
-                        placeholder={`Nome do convidado ${index + 1}`}
+                        placeholder={`Nome do acompanhante ${index + 1}`}
                         required={guestsCount > 0} // ✅ required on each guest
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4AF7F] focus:border-[#D4AF7F]"
                       />

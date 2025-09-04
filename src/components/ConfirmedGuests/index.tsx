@@ -115,10 +115,10 @@ export function ConfirmedGuests() {
             className="bg-white rounded-lg shadow p-4 relative"
           >
             <p className="font-medium text-gray-700">
-              {guest.userName} - {guest.userEmail}
+              Confirmação feita por {guest.userName} - {guest.userEmail}
             </p>
             <p className="text-sm text-gray-500 mb-2">
-              Confirmado em:{" "}
+              Em:{" "}
               {guest.confirmedAt.toDate().toLocaleDateString("pt-BR", {
                 day: "2-digit",
                 month: "2-digit",
