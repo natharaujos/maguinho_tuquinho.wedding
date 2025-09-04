@@ -115,7 +115,7 @@ export default function GiftList() {
               onClick={() => setCurrentPage(pageNum)}
               className={`px-4 py-2 rounded-md ${
                 currentPage === pageNum
-                  ? "bg-[#D4AF7F] text-white cursor-pointer"
+                  ? "bg-[#F4D4C1] text-white cursor-pointer"
                   : "bg-[#D4AF7F] text-white hover:bg-[#F4D4C1] cursor-pointer"
               }`}
             >
