@@ -94,11 +94,11 @@ export default function GiftList() {
       </div>
 
       {/* Paginação */}
-      <div className="flex justify-center mt-10 space-x-3">
+      <div className="flex justify-center mt-10 space-x-2 sm:space-x-3 flex-wrap sm:flex-nowrap">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
-          className={`px-4 py-2 rounded-md ${
+          className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md text-sm sm:text-base ${
             currentPage === 1
               ? "bg-gray-300 cursor-not-allowed"
               : "bg-[#D4AF7F] text-white hover:bg-[#F4D4C1]"
@@ -107,32 +107,56 @@ export default function GiftList() {
           Prev
         </button>
 
-        {[...Array(totalPages)].map((_, i) => {
-          const pageNum = i + 1;
-          return (
-            <button
-              key={pageNum}
-              onClick={() => setCurrentPage(pageNum)}
-              className={`px-4 py-2 rounded-md ${
-                currentPage === pageNum
-                  ? "bg-[#F4D4C1] text-white cursor-pointer"
-                  : "bg-[#D4AF7F] text-white hover:bg-[#F4D4C1] cursor-pointer"
-              }`}
-            >
-              {pageNum}
-            </button>
-          );
-        })}
+        <div className="flex overflow-x-auto max-w-[80vw] sm:max-w-none space-x-2 sm:space-x-3 scrollbar-hide">
+          {[...Array(totalPages)].map((_, i) => {
+            const pageNum = i + 1;
+
+            // Show first, last, current, and neighbors
+            if (
+              pageNum === 1 ||
+              pageNum === totalPages ||
+              (pageNum >= currentPage - 1 && pageNum <= currentPage + 1)
+            ) {
+              return (
+                <button
+                  key={pageNum}
+                  onClick={() => setCurrentPage(pageNum)}
+                  className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md text-sm sm:text-base ${
+                    currentPage === pageNum
+                      ? "bg-[#F4D4C1] text-white"
+                      : "bg-[#D4AF7F] text-white hover:bg-[#F4D4C1]"
+                  }`}
+                >
+                  {pageNum}
+                </button>
+              );
+            }
+
+            // Show ellipsis if gap
+            if (
+              (pageNum === currentPage - 2 && pageNum > 1) ||
+              (pageNum === currentPage + 2 && pageNum < totalPages)
+            ) {
+              return (
+                <span key={pageNum} className="px-2 text-gray-500">
+                  ...
+                </span>
+              );
+            }
+
+            return null;
+          })}
+        </div>
 
         <button
           onClick={() =>
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }
           disabled={currentPage === totalPages}
-          className={`px-4 py-2 rounded-md ${
+          className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md text-sm sm:text-base ${
             currentPage === totalPages
               ? "bg-gray-300 cursor-not-allowed"
-              : "bg-[#D4AF7F] text-white hover:bg-[#F4D4C1] cursor-pointer"
+              : "bg-[#D4AF7F] text-white hover:bg-[#F4D4C1]"
           }`}
         >
           Next
