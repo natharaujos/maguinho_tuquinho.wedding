@@ -6,7 +6,6 @@ import { auth } from "../../../firebase";
 import admins from "../../constants/admins";
 import { getAuth, signOut } from "firebase/auth";
 import { Dialog } from "@mui/material";
-import { LogOutIcon } from "lucide-react";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,9 +32,18 @@ function Navbar() {
     onClick: () => navigate("/all-contributions"),
   };
 
+  const logout = {
+    label: "Sair",
+    onClick: () => handleLogout(),
+  };
+
   if (user?.email && admins.includes(user?.email)) {
     navLinks.push(confirmedRoute);
     navLinks.push(allContributions);
+  }
+
+  if (user) {
+    navLinks.push(logout);
   }
 
   const handleLogout = async () => {
@@ -61,15 +69,6 @@ function Navbar() {
           >
             Maguinha & Tuquinho
           </a>
-
-          {user && (
-            <button
-              onClick={handleLogout}
-              className="text-[#D4AF7F] hover:text-[#F4D4C1] transition ml-4 cursor-pointer"
-            >
-              <LogOutIcon />
-            </button>
-          )}
         </div>
 
         {/* Ícone do menu mobile */}
