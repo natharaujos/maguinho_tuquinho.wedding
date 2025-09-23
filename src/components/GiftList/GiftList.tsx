@@ -31,8 +31,7 @@ export default function GiftList() {
           id: doc.id,
         })) as Gift[];
 
-        const availableGifts = giftsList.filter((gift) => !gift.buyedBy);
-        setGifts(availableGifts);
+        setGifts(giftsList);
       } catch (error) {
         console.error("Error fetching gifts:", error);
       } finally {
