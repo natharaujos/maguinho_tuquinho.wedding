@@ -9,8 +9,6 @@ import PaymentSuccess from "./components/PaymentSuccess/PaymentSuccess";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import GoogleLogin from "./components/Auth/GoogleLogin";
 import PaymentOptions from "./pages/PaymentOptions";
-import CreditCardForm from "./pages/CreditCardForm";
-import PixCheckout from "./pages/PixCheckout";
 import { ConfirmedGuests } from "./components/ConfirmedGuests";
 import { MyContributions } from "./components/MyContributions";
 import AdminRoute from "./components/AdminRoute";
@@ -59,22 +57,6 @@ function App() {
               element={
                 <ProtectedRoute>
                   <PaymentOptions />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/gift/:id/card"
-              element={
-                <ProtectedRoute>
-                  <CreditCardForm />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/gift/pix-checkout"
-              element={
-                <ProtectedRoute>
-                  <PixCheckout />
                 </ProtectedRoute>
               }
             />

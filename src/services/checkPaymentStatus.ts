@@ -5,7 +5,7 @@ export async function checkPaymentStatus(
 ): Promise<"approved" | "rejected" | "cancelled" | "pending" | "error"> {
   try {
     const res = await fetch(
-      `${MT_API}/api/checkPaymentStatus?paymentId=${paymentId}`,
+      `${MT_API}/api/payments/checkStatus?paymentId=${paymentId}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
