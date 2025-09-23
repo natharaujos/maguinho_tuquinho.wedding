@@ -6,9 +6,11 @@ import {
   Timestamp,
   doc,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { checkPaymentStatus } from "../../services/checkPaymentStatus";
+import { Dialog } from "@mui/material";
 
 interface Payment {
   id?: string;
@@ -26,6 +28,10 @@ function AllContributions() {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedPaymentId, setSelectedPaymentId] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     async function fetchAndUpdatePayments() {
@@ -109,6 +115,20 @@ function AllContributions() {
     return statusMap[status];
   };
 
+  const handleDelete = async () => {
+    if (!selectedPaymentId) return;
+
+    try {
+      await deleteDoc(doc(db, "payments", selectedPaymentId));
+      setPayments((prev) => prev.filter((p) => p.id !== selectedPaymentId));
+    } catch (error) {
+      console.error("Erro ao excluir pagamento:", error);
+    } finally {
+      setConfirmOpen(false);
+      setSelectedPaymentId(null);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center p-8">
@@ -151,7 +171,7 @@ function AllContributions() {
         {payments.map((payment) => (
           <div
             key={payment.id}
-            className="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row justify-between gap-4"
+            className="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row justify-between gap-4 relative"
           >
             <div className="flex-1">
               <p className="font-medium text-gray-700">{payment.giftTitle}</p>
@@ -179,6 +199,15 @@ function AllContributions() {
             >
               {getStatusText(payment.status)}
             </div>
+            <button
+              onClick={() => {
+                setSelectedPaymentId(payment.id || "");
+                setConfirmOpen(true);
+              }}
+              className="absolute bottom-2 right-5 px-3 py-1 text-sm font-medium text-white bg-red-500 rounded-md shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 transition-colors duration-200 cursor-pointer"
+            >
+              Remover
+            </button>
           </div>
         ))}
 
@@ -188,6 +217,40 @@ function AllContributions() {
           </p>
         )}
       </div>
+
+      {/* 🔥 Modal de confirmação */}
+      <Dialog
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        maxWidth="xs"
+        fullWidth
+        PaperProps={{
+          className: "p-6 rounded-lg",
+        }}
+      >
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          Confirmar exclusão
+        </h3>
+        <p className="text-gray-600 mb-6">
+          Tem certeza que deseja remover esta <strong>contribuição</strong>?
+          Esta ação não pode ser desfeita.
+        </p>
+
+        <div className="flex justify-end space-x-3">
+          <button
+            onClick={() => setConfirmOpen(false)}
+            className="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors duration-200"
+          >
+            Cancelar
+          </button>
+          <button
+            onClick={handleDelete}
+            className="px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors duration-200"
+          >
+            Remover
+          </button>
+        </div>
+      </Dialog>
     </section>
   );
 }
