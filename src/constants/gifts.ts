@@ -114,6 +114,130 @@ export const giftData: Gift[] = [
   },
 ];
 
+export const giftData2: Gift[] = [
+  {
+    id: 2001,
+    title: "Jogo de Panelas Tramontina Antiaderente Paris 5 Peças",
+    image: "https://m.media-amazon.com/images/I/61AjgTFEaRL._AC_SL1000_.jpg",
+    price: new Price(289.9).getSummary(),
+  },
+  {
+    id: 2002,
+    title: "Aspirador de Pó Vertical Mondial Turbo Cycle 2 em 1",
+    image: "https://m.media-amazon.com/images/I/510P6tjT3ZL._AC_SL1000_.jpg",
+    price: new Price(219.9).getSummary(),
+  },
+  {
+    id: 2003,
+    title: "Conjunto 6 Taças de Vinho 350ml Cristal Ecológico",
+    image: "https://m.media-amazon.com/images/I/71wHmPlBXkL._AC_SY300_SX300_QL70_ML2_.jpg",
+    price: new Price(79.9).getSummary(),
+  },
+  {
+    id: 2004,
+    title: "Kit Edredom Queen 3 Peças Dupla Face Microfibra",
+    image: "https://m.media-amazon.com/images/I/81bcDKD90bL._AC_SL1500_.jpg",
+    price: new Price(169.9).getSummary(),
+  },
+  {
+    id: 2005,
+    title: "Jogo de Facas Tramontina Century Inox 4 Peças",
+    image: "https://m.media-amazon.com/images/I/71EvJYnDRYL._AC_SY450_.jpg",
+    price: new Price(349.9).getSummary(),
+  },
+  {
+    id: 2006,
+    title: "Aparelho de Jantar Oxford 20 Peças Ryo Bambu",
+    image: "https://m.media-amazon.com/images/I/51HjUseflNS._AC_SL1000_.jpg",
+    price: new Price(279.9).getSummary(),
+  },
+  {
+    id: 2007,
+    title: "Cafeteira Elétrica Programável Oster 30 Xícaras",
+    image: "https://m.media-amazon.com/images/I/51HQ6ID+8sL._AC_SL1000_.jpg",
+    price: new Price(199.9).getSummary(),
+  },
+  {
+    id: 2008,
+    title: "Panela de Pressão Elétrica Midea Digital 6L",
+    image: "https://m.media-amazon.com/images/I/51sNWqooJkL._AC_SL1000_.jpg",
+    price: new Price(349.0).getSummary(),
+  },
+  {
+    id: 2009,
+    title: "Kit Frigideira Antiaderente Tramontina 3 Peças",
+    image: "https://m.media-amazon.com/images/I/81FwSobL5rL._AC_SL1500_.jpg",
+    price: new Price(119.9).getSummary(),
+  },
+  {
+    id: 2010,
+    title: "Tábua de Corte Plástico Antibacteriana Grande",
+    image: "https://m.media-amazon.com/images/I/31Z4lih5VBL._AC_SL1024_.jpg",
+    price: new Price(49.9).getSummary(),
+  },
+  {
+    id: 2011,
+    title: "Ventilador de Mesa Breeze Air Elgin",
+    image: "https://m.media-amazon.com/images/I/71CyuvR8vFL._AC_SL1500_.jpg",
+    price: new Price(239.9).getSummary(),
+  },
+  {
+    id: 2012,
+    title: "Kit Jogo de Toalhas Banho 5 Peças Algodão",
+    image: "https://m.media-amazon.com/images/I/81dHjWrPmbL._AC_SY300_.jpg",
+    price: new Price(129.9).getSummary(),
+  },
+  {
+    id: 2013,
+    title: "Aparelho de Fondue Inox com 10 Peças",
+    image: "https://m.media-amazon.com/images/I/51LEEetmQNL._AC_SL1200_.jpg",
+    price: new Price(149.9).getSummary(),
+  },
+  {
+    id: 2014,
+    title: "Conjunto de Potes Herméticos 10 Peças Transparente",
+    image: "https://m.media-amazon.com/images/I/71DJAM8YMCL._AC_SY300_SX300_QL70_ML2_.jpg",
+    price: new Price(89.9).getSummary(),
+  },
+  {
+    id: 2015,
+    title: "Relógio de Parede Minimalista 30cm",
+    image: "https://m.media-amazon.com/images/I/61QA39dtcmL._AC_SY300_SX300_QL70_ML2_.jpg",
+    price: new Price(69.9).getSummary(),
+  },
+  {
+    id: 2016,
+    title: "Travesseiro NASA Viscoelástico Anti Stress",
+    image: "https://m.media-amazon.com/images/I/71LUnQJUrbL._AC_SY300_SX300_QL70_ML2_.jpg",
+    price: new Price(99.9).getSummary(),
+  },
+  {
+    id: 2017,
+    title: "Organizador Multiuso com 4 Gavetas Acrílico",
+    image: "https://m.media-amazon.com/images/I/719cPel8ziL._AC_SY300_SX300_QL70_ML2_.jpg",
+    price: new Price(119.9).getSummary(),
+  },
+  {
+    id: 2018,
+    title: "Luminária de Mesa LED Touch com USB",
+    image: "https://m.media-amazon.com/images/I/31MyZrQvNxL._AC_SX342_SY445_QL70_ML2_.jpg",
+    price: new Price(89.9).getSummary(),
+  },
+  {
+    id: 2019,
+    title: "Espelho Decorativo Redondo com Alça Couro",
+    image: "https://m.media-amazon.com/images/I/71mfCOSQqtL._AC_SL1500_.jpg",
+    price: new Price(159.9).getSummary(),
+  },
+  {
+    id: 2020,
+    title: "Aquecedor Elétrico Cadence AQC800",
+    image: "https://m.media-amazon.com/images/I/61al-EnGpAL._AC_SL1000_.jpg",
+    price: new Price(249.9).getSummary(),
+  },
+];
+
+
 export const honeyMoonGifts = [
   // {
   //   id: 1,

@@ -1,12 +1,12 @@
 import { db } from "../../firebase";
 import { collection, addDoc } from "firebase/firestore";
-import { giftData } from "../constants/gifts";
+import { giftData2 } from "../constants/gifts";
 
 async function migrateGifts() {
   try {
     const giftsCollection = collection(db, "gifts");
 
-    for (const gift of giftData) {
+    for (const gift of giftData2) {
       await addDoc(giftsCollection, {
         ...gift,
         buyedBy: "", // Add empty buyedBy field
